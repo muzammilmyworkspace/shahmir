@@ -1,0 +1,51 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { FOOTER_OFFICES, SITE } from '../data/content';
+const input = 'h-[72px] w-full rounded-[8px] border border-[#CCCCCC] bg-transparent px-5 font-[Geist] text-[18px] leading-[1.2] tracking-[-0.01em] text-white placeholder:text-white outline-none transition-colors focus:border-white focus:shadow-[inset_0_-2px_0_0_#F43C00]';
+const opts = [['referral', 'Referral'], ['linkedin', 'LinkedIn'], ['instagram', 'Instagram'], ['google', 'Google'], ['other', 'Other']];
+---
+<Layout title="Contact | The West Side Studios" namespace="contact">
+  <section class="min-h-screen bg-primary" data-header-theme="light">
+    <div class="mx-auto flex min-h-screen max-w-[1440px] flex-col gap-16 px-8 py-[160px] lg:flex-row lg:gap-0 lg:px-[120px]">
+      <div class="flex flex-1 flex-col">
+        <h1 data-reveal-entry class="mb-16 max-w-[636px] font-[Geist] text-[40px] font-normal leading-[1.04] tracking-[-0.01em] text-white lg:text-[56px]">Let’s build something that matters.</h1>
+        <form id="contact-form" class="flex w-full flex-col gap-4" novalidate>
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <input type="text" name="name" placeholder="Name" required class={input} />
+            <input type="text" name="company" placeholder="Company Name" class={input} />
+          </div>
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <input type="url" name="website" placeholder="Company Website" class={input} />
+            <input type="email" name="email" placeholder="Work Email" required class={input} />
+          </div>
+          <div class="relative" id="source-dropdown">
+            <input type="hidden" name="source" id="source-value" />
+            <button type="button" id="source-trigger" aria-haspopup="listbox" aria-expanded="false" class="h-[72px] w-full rounded-[8px] border border-[#CCCCCC] bg-transparent px-5 text-left font-[Geist] text-[18px] leading-[1.2] tracking-[-0.01em] text-white outline-none transition-colors data-[open]:border-white">How did you hear about us?</button>
+            <svg id="source-chevron" class="pointer-events-none absolute right-5 top-1/2 -mt-[6px] transition-transform" width="14" height="12" viewBox="0 0 14 8" fill="none" stroke="#fff" stroke-width="1.5"><path d="M1 1l6 6 6-6" /></svg>
+            <ul id="source-list" role="listbox" aria-label="How did you hear about us?" class="absolute left-0 right-0 top-[calc(100%+4px)] z-10 hidden overflow-hidden rounded-[8px] border border-white/20 bg-[#d43500]">
+              {opts.map(([v, l]) => <li role="option" aria-selected="false" data-value={v} class="cursor-pointer px-5 py-4 font-[Geist] text-[18px] leading-[1.2] tracking-[-0.01em] text-white transition-colors hover:bg-white/10">{l}</li>)}
+            </ul>
+          </div>
+          <textarea name="message" placeholder="Tell us about the project" required class="h-[168px] w-full resize-none rounded-[8px] border border-[#CCCCCC] bg-transparent px-5 py-5 font-[Geist] text-[18px] leading-[1.2] tracking-[-0.01em] text-white placeholder:text-white outline-none transition-colors focus:border-white"></textarea>
+          <button type="submit" class="mt-2 inline-flex h-[48px] w-fit items-center justify-center gap-2 rounded-[8px] bg-white px-[40px] py-[19px] font-[Geist_Mono] text-[12px] font-semibold uppercase leading-[1.12] tracking-[-0.01em] text-primary transition-opacity hover:opacity-80">Submit</button>
+          <p id="contact-status" class="text-sm text-white/70" aria-live="polite"></p>
+        </form>
+      </div>
+      <div class="hidden w-px -my-[160px] self-stretch bg-white/40 lg:mx-[120px] lg:block"></div>
+      <div class="flex flex-col lg:w-[216px] lg:pt-[274px]">
+        <span class="mb-[41px] block whitespace-pre-line font-[Geist] text-[24px] font-normal leading-[1.04] tracking-[-0.01em] text-white">Connect with us</span>
+        <div class="flex flex-col gap-8">
+          {FOOTER_OFFICES.map((o) => (
+            <div class="flex flex-col gap-[7px]">
+              <span class="font-[Geist] text-[16px] font-medium leading-[1.2] tracking-[-0.01em] text-white">{o.city}</span>
+              {o.lines.map((l) => <span class="font-[Geist] text-[14px] font-normal leading-[1.2] tracking-[-0.01em] text-white">{l}</span>)}
+            </div>
+          ))}
+          <div class="flex flex-col gap-[7px]">
+            <a href={`mailto:${SITE.email}`} class="font-[Geist] text-[16px] font-medium leading-[1.2] tracking-[-0.01em] text-white transition-opacity hover:opacity-80">{SITE.email}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

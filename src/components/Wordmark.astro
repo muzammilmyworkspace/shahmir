@@ -1,0 +1,16 @@
+---
+/* Inline "westside" wordmark built from Geist Bold outlines; each letter is its own group
+   so the footer can run the gravity effect. */
+import W from '../data/wordmark-letters.json';
+interface Props { gravity?: boolean; class?: string }
+const { gravity = false, class: cls = '' } = Astro.props;
+---
+<div class:list={[cls, gravity && 'gravity-text']} aria-label="westside" role="img">
+  <svg viewBox={`0 0 ${W.w} ${W.h}`} fill="#fff" aria-hidden="true">
+    <g transform={`translate(${-W.x0} ${W.y1}) scale(1 -1)`}>
+      {W.letters.map((l) => (
+        <g transform={`translate(${l.x} 0)`}><path class={gravity ? 'gravity-letter' : ''} d={l.d} /></g>
+      ))}
+    </g>
+  </svg>
+</div>

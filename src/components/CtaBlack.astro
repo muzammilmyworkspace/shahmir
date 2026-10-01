@@ -1,0 +1,16 @@
+---
+interface Props { title?: string; text?: string }
+const {
+  title = 'Let’s build your next experience',
+  text = 'Our work goes beyond deliverables. We design every project to bring story, design and technology together into experiences that last.',
+} = Astro.props;
+---
+<section class="bg-[#000000] flex flex-col justify-between px-6 py-12 lg:flex-row lg:px-10" style="min-height: 80dvh;">
+  <div class="flex flex-col justify-around items-start max-w-xl">
+    <h2 class="text-4xl text-white mb-10 lg:text-7xl lg:mb-0" data-reveal>{title}</h2>
+    <a href="/contact" class="inline-flex h-[48px] shrink-0 items-center justify-center rounded-[8px] bg-primary px-[40px] font-[Geist_Mono] text-[12px] font-semibold uppercase leading-[1.12] tracking-[-0.01em] text-white transition-opacity hover:opacity-90">Book a call</a>
+  </div>
+  <div class="flex items-end pt-10 lg:pt-0 lg:pb-20">
+    <p class="text-base font-geist text-white leading-relaxed max-w-[384px] lg:text-base">{text}</p>
+  </div>
+</section>

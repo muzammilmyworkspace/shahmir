@@ -1,0 +1,35 @@
+---
+import Wordmark from './Wordmark.astro';
+import { FOOTER_OFFICES, SITE } from '../data/content';
+const link = 'font-[Geist] text-[16px] font-medium leading-[1.2] tracking-[-0.01em] text-white transition-opacity hover:opacity-60';
+---
+<footer id="site-footer" class="relative overflow-hidden bg-primary">
+  <div class="relative z-20 flex flex-col gap-10 px-6 pt-12 pb-0 lg:flex-row lg:items-start lg:px-12 lg:pt-16 lg:gap-0">
+    <div class="flex flex-col gap-10 lg:w-[58%]">
+      <h2 class="font-[Geist] text-[28px] lg:text-[40px] font-normal leading-[1.04] tracking-[-0.01em] text-white whitespace-pre-line">Let’s design what’s next.</h2>
+      <a href="/contact" class="inline-flex h-[44px] w-fit items-center justify-center rounded-[8px] bg-white px-8 font-[Geist_Mono] text-[12px] font-semibold uppercase leading-[1.12] tracking-[-0.01em] text-primary">Contact us</a>
+    </div>
+    <div class="flex flex-col gap-10 lg:flex-1 lg:flex-row lg:justify-between">
+      <nav class="flex flex-col gap-7 lg:pt-2">
+        <a href="/projects" class={link}>Projects</a>
+        <a href="/about" class={link}>About us</a>
+        <a href="/legal/privacy" class={link}>Privacy Policy</a>
+        <a href="/legal/notice" class={link}>Legal Notice</a>
+        <a href="/contact" class={link}>Get in touch</a>
+      </nav>
+      <div class="flex flex-col gap-11 lg:pt-2">
+        {FOOTER_OFFICES.map((o) => (
+          <div>
+            <p class="font-[Geist] text-[16px] font-medium leading-[1.2] tracking-[-0.01em] text-white">{o.city}</p>
+            {o.lines.map((l) => <p class="mt-2 font-[Geist] text-[14px] font-normal leading-[1.2] tracking-[-0.01em] text-white">{l}</p>)}
+          </div>
+        ))}
+        <a href={`mailto:${SITE.email}`} class="font-[Geist] text-[14px] leading-[1.2] text-white transition-opacity hover:opacity-60">{SITE.email}</a>
+      </div>
+    </div>
+  </div>
+  <div class="relative mt-16 lg:mt-[170px]">
+    <Wordmark gravity class="block w-full px-[1.2vw]" />
+    <div class="pointer-events-none absolute inset-x-0 bottom-0 h-1/2" style="background: linear-gradient(to top in srgb, #f43c00 0%, rgba(244, 60, 0, 0) 100%);"></div>
+  </div>
+</footer>

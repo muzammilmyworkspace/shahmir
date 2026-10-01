@@ -1,0 +1,69 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import CtaBlack from '../../components/CtaBlack.astro';
+import Footer from '../../components/Footer.astro';
+import { POSTS, BLOG_FILTERS } from '../../data/content';
+const [featured, ...rest] = POSTS;
+const mono = 'font-[Geist_Mono] uppercase leading-[120%] tracking-[-0.01em]';
+const cap = (s: string) => s[0].toUpperCase() + s.slice(1);
+---
+<Layout title="Blog | The West Side Studios" namespace="blog">
+  <section class="bg-black px-6 pb-16 pt-[100px] text-white lg:px-12 lg:pb-24 lg:pt-[176px]">
+    <div class="mx-auto flex max-w-[1216px] flex-col gap-6 lg:gap-10">
+      <h1 data-reveal-entry class="whitespace-pre-line font-[Geist] font-normal text-[32px] leading-[104%] tracking-[-0.01em] md:text-[44px] lg:max-w-[620px] lg:text-[56px]">Notes from the studio</h1>
+      <p class="font-[Geist] font-normal text-[16px] leading-[130%] tracking-[-0.01em] text-white/70 lg:max-w-[420px] lg:self-end">What we’re building, the tools we use, and what we learn along the way. Thoughts on design, motion and development.</p>
+    </div>
+  </section>
+
+  <section class="bg-white px-6 py-16 text-black lg:px-12">
+    <a href={`/blog/${featured.slug}`} class="group mx-auto grid max-w-[1216px] gap-8 lg:grid-cols-2 lg:gap-16">
+      <div class="aspect-[4/3] w-full overflow-hidden rounded-[8px] bg-[#f3f3f4] lg:aspect-auto">
+        <img src={featured.img} alt={featured.title} class="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" />
+      </div>
+      <div class="flex flex-col lg:py-6">
+        <span class={`text-[12px] font-semibold text-primary ${mono}`}>Featured</span>
+        <span class={`mt-4 text-[12px] text-[#666666] ${mono}`}>{featured.read} · {featured.date}</span>
+        <h2 class="mt-4 font-[Geist] text-[28px] font-medium leading-[1.15] tracking-[-0.01em] text-black md:text-[36px]">{featured.title}</h2>
+        <p class="mt-4 font-[Geist] text-base leading-relaxed text-[#666666]">{featured.excerpt}</p>
+        <div class="mt-8 flex items-center gap-3">
+          <span class="grid h-8 w-8 place-items-center rounded-full border-2 border-white bg-primary text-[11px] text-white">WS</span>
+          <span class="font-[Geist] text-sm text-[#666666]">{featured.author}</span>
+        </div>
+        <span class={`mt-auto inline-flex w-fit items-center gap-2 pt-10 text-[12px] text-black transition-opacity group-hover:opacity-60 ${mono}`}>Read the story</span>
+      </div>
+    </a>
+  </section>
+
+  <div class="bg-white px-6 pb-4 lg:px-12">
+    <div id="blog-filters" class="mx-auto flex max-w-[1216px] flex-wrap gap-2 border-t border-[#e5e5e5] pt-8">
+      {BLOG_FILTERS.map(([v, l], i) => <button type="button" data-filter={v} aria-pressed={i === 0 ? 'true' : 'false'} class={`filter-pill rounded-full px-4 py-2 text-[12px] font-normal transition-colors ${mono}`}>{l}</button>)}
+    </div>
+  </div>
+
+  <section class="bg-white px-6 py-16 text-black lg:px-12 lg:py-24">
+    <div class="mx-auto max-w-[1216px]">
+      <div class="grid grid-cols-1 gap-x-4 gap-y-12 md:grid-cols-2 lg:grid-cols-3 lg:gap-y-16">
+        {rest.map((p) => (
+          <a href={`/blog/${p.slug}`} class="group flex flex-col" data-categories={p.cats.join(',')}>
+            <div class="aspect-[4/3] w-full overflow-hidden rounded-[8px]" style={`background-color: ${p.bg};`}>
+              <img src={p.img} alt={p.title} loading="lazy" class="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" />
+            </div>
+            <div class="mt-6 flex items-center justify-between gap-2">
+              <div class="flex flex-wrap gap-2">{p.cats.map((c) => <span class={`rounded-full border border-[#e5e5e5] px-3 py-1 text-[10px] font-normal text-[#666666] ${mono}`}>{cap(c)}</span>)}</div>
+              <span class={`ml-auto shrink-0 text-[12px] font-normal text-[#666666] ${mono}`}>{p.read} · {p.date}</span>
+            </div>
+            <h2 class="mt-2 font-[Geist] text-base font-medium leading-[1.2] tracking-[-0.01em] text-black">{p.title}</h2>
+            <p class="mt-2 font-[Geist] text-sm leading-relaxed text-[#666666]">{p.excerpt}</p>
+            <div class="mt-4 flex items-center gap-2">
+              <span class="grid h-6 w-6 place-items-center rounded-full border-2 border-white bg-primary text-[9px] text-white">WS</span>
+              <span class="font-[Geist] text-xs text-[#666666]">{p.author}</span>
+            </div>
+            <span class={`mt-auto inline-flex w-fit items-center gap-1 self-end bg-gradient-to-r from-[#f3f3f4] via-[#f3f3f4]/70 to-transparent px-2 pt-4 text-[12px] font-normal text-black transition-opacity group-hover:opacity-60 ${mono}`}>Read more</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+  <CtaBlack title="Let’s build something great together." text="We work with ambitious teams to create brands, websites and products that help businesses move forward." />
+  <Footer />
+</Layout>

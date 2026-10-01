@@ -1,0 +1,28 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Footer from '../../components/Footer.astro';
+import { SITE } from '../../data/content';
+const PAGES = {
+  privacy: { title: 'Privacy Policy', body: [
+    'We only collect the information you choose to send us through our contact form or by email: your name, company, website, email address and message.',
+    'We use it solely to reply to your enquiry and to discuss a possible project. We do not sell or share it with third parties, except the email service that delivers your message to us.',
+    `To ask what we hold about you, or to have it deleted, write to ${SITE.email}.`,
+  ] },
+  notice: { title: 'Legal Notice', body: [
+    'This website is published by The West Side Studios.',
+    `Contact: ${SITE.email}.`,
+    'All project imagery is shown with the permission of the respective clients. Concept work is labelled as such and is not affiliated with the brands it references.',
+  ] },
+} as const;
+export function getStaticPaths() { return [{ params: { slug: 'privacy' } }, { params: { slug: 'notice' } }]; }
+const page = PAGES[Astro.params.slug as keyof typeof PAGES];
+---
+<Layout title={`${page.title} | The West Side Studios`} namespace={`legal-${Astro.params.slug}`}>
+  <section class="bg-white px-6 pb-24 pt-[140px] text-black lg:pt-[176px]">
+    <div class="mx-auto max-w-[680px]">
+      <h1 data-reveal-entry class="font-[Geist] text-[40px] leading-[1.04] tracking-[-0.01em] lg:text-[56px]">{page.title}</h1>
+      <div class="mt-12 flex flex-col gap-5 font-[Geist] text-[16px] leading-[1.6] text-[#333]">{page.body.map((p) => <p>{p}</p>)}</div>
+    </div>
+  </section>
+  <Footer />
+</Layout>

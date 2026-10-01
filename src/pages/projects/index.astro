@@ -1,0 +1,32 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import CtaBlack from '../../components/CtaBlack.astro';
+import Footer from '../../components/Footer.astro';
+import { PROJECTS } from '../../data/content';
+---
+<Layout title="Projects | The West Side Studios" namespace="projects">
+  <section class="bg-white px-6 pb-16 pt-[100px] text-black lg:px-12 lg:pb-24 lg:pt-[176px]">
+    <div class="mx-auto max-w-[1216px]">
+      <div class="mb-12 flex flex-col gap-6 lg:mb-16 lg:gap-10">
+        <h1 data-reveal-entry class="whitespace-pre-line font-[Geist] font-normal text-[32px] leading-[104%] tracking-[-0.01em] md:text-[44px] lg:max-w-[420px] lg:text-[56px]">Projects That Make an Impact</h1>
+        <p class="font-[Geist] font-normal text-[16px] leading-[130%] tracking-[-0.01em] text-[#666666] lg:max-w-[280px] lg:self-end">From first sketch to launch, we build brands, websites and experiences that help businesses move forward.</p>
+      </div>
+      <div class="grid grid-cols-1 gap-x-4 gap-y-12 md:grid-cols-2 lg:gap-y-16">
+        {PROJECTS.map((p) => (
+          <a href={`/projects/${p.slug}`} class="group block">
+            <div class="aspect-square w-full overflow-hidden rounded-[8px]" style={`background-color: ${p.bg};`}>
+              {p.video
+                ? <video src={p.video} poster={p.poster} autoplay muted loop playsinline preload="metadata" data-autoplay-in-view class="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"></video>
+                : <img src={p.cover} alt={p.client} class="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" />}
+            </div>
+            <h2 class="mt-6 font-[Geist] text-base font-medium leading-[1.2] tracking-[-0.01em] text-black">{p.client}</h2>
+            <p class="mt-2 font-[Geist] text-sm leading-relaxed text-[#666666]">{p.short}</p>
+            <span class="mt-4 inline-flex items-center gap-1 font-[Geist_Mono] text-[12px] font-normal uppercase leading-[120%] tracking-[-0.01em] text-black transition-opacity group-hover:opacity-60">View project</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+  <CtaBlack title="Let’s build something great together." text="We work with ambitious teams to create brands, websites and products that help businesses move forward." />
+  <Footer />
+</Layout>

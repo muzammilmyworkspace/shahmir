@@ -1,0 +1,42 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CtaBlack from '../components/CtaBlack.astro';
+import Footer from '../components/Footer.astro';
+import Wordmark from '../components/Wordmark.astro';
+import { ABOUT } from '../data/content';
+---
+<Layout title="About | The West Side Studios" namespace="about">
+  <section class="relative w-full overflow-hidden h-screen bg-black text-white">
+    <div class="relative z-10 flex flex-col gap-8 pt-[40px] px-6 py-12 md:px-8 lg:block">
+      <p data-reveal-entry class="relative mt-[60px] lg:mt-0 lg:absolute lg:left-8 lg:top-[80px] max-w-[440px] font-geist font-normal text-base md:text-lg lg:text-2xl leading-snug lg:leading-[1.04] tracking-tight lg:tracking-[-0.01em]">{ABOUT.heroLead}</p>
+      <p data-reveal-entry class="relative self-end lg:absolute lg:right-8 lg:top-[200px] max-w-[220px] font-[Geist_Mono] font-normal text-xs leading-[1.2] tracking-[-0.01em] uppercase">{ABOUT.heroAside}</p>
+    </div>
+    <Wordmark class="absolute inset-x-0 bottom-0 w-full px-[1.2vw]" />
+  </section>
+
+  <section class="relative w-full min-h-screen overflow-hidden bg-white text-black px-6 md:px-8">
+    <div class="flex items-center mx-auto min-h-screen max-w-[680px]">
+      <p data-reveal class="font-[Geist] font-normal text-base sm:text-lg md:text-xl lg:text-[32px] leading-snug md:leading-relaxed lg:leading-[1.3] tracking-tight md:tracking-normal lg:tracking-[-0.01em] text-center">{ABOUT.intro}</p>
+    </div>
+  </section>
+
+  <section class="relative w-full min-h-screen bg-primary text-white px-6 xl:px-12 xl:h-screen">
+    <div class="flex flex-col justify-between gap-20 md:gap-12 md:min-h-[calc(100vh-192px)]">
+      <div class="w-full max-w-[548px] pt-20 lg:pt-[120px]">
+        <span class="block mb-8 xl:mb-12 font-[Geist_Mono] text-[12px] uppercase leading-[1.3] tracking-[-0.01em]">Our Philosophy</span>
+        <p data-reveal class="font-[Geist] font-normal text-[20px] xl:text-[28px] leading-[1.3] tracking-[-0.01em]">{ABOUT.philosophy}</p>
+      </div>
+      <div class="w-full md:max-w-[680px] md:self-end xl:-translate-y-[180px] pb-20">
+        {ABOUT.stats.map(([n, l]) => (
+          <div class="flex justify-between border-t border-white/40 py-6 xl:pb-8 xl:pt-0">
+            <span class="font-[Geist] text-[42px] md:text-[56px] xl:text-[80px] font-normal leading-[1.3] tracking-[-0.01em]">{n}</span>
+            <span class="font-[Geist] text-sm xl:text-base font-normal leading-[1.3] pt-4 xl:pt-[20px]">{l}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaBlack />
+  <Footer />
+</Layout>
