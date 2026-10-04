@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import Header from '../components/Header.astro';
+import WhatsApp from '../components/WhatsApp.astro';
 import { SITE } from '../data/content';
 interface Props { title?: string; description?: string; namespace?: string }
 const { title = SITE.title, description = SITE.description, namespace = Astro.url.pathname } = Astro.props;
@@ -23,6 +24,7 @@ const { title = SITE.title, description = SITE.description, namespace = Astro.ur
   </head>
   <body>
     <Header />
+    <WhatsApp />
     <div data-barba="wrapper">
       <main data-barba="container" data-barba-namespace={namespace}>
         <slot />

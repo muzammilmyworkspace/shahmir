@@ -78,7 +78,7 @@ a.menu-image:hover img { transform: scale(1.05); }
   .menu-close { top: 24px; right: 32px; position: absolute; }
   .menu-primary { padding-top: 63px; gap: 44px; }
   .menu-secondary { padding-top: 59px; gap: 18px; }
-  .menu-images { margin-top: auto; grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 143px; overflow-x: auto; scrollbar-width: none; }
+  .menu-images { margin-top: auto; grid-template-columns: repeat(3, 1fr); gap: 8px; }
   .menu-images::-webkit-scrollbar { display: none; }
 }
 
@@ -410,4 +410,26 @@ body:has(.f-journey) { background: var(--f-black); }
   .f-work h2 { font-size: 52px; }
   .f-work .f-lead { font-size: 15px; margin-bottom: 22px; }
   .header-name { font-size: 18px; }
+}
+
+/* footer name (fits the full width), socials, WhatsApp */
+.f-footer-name { padding: 6vh 4vw 3vh; margin: 0; font-family: var(--f-display); font-size: 12.6vw; line-height: .9; white-space: nowrap; text-align: center; letter-spacing: -.005em;
+  color: transparent; -webkit-text-stroke: 1px rgba(241,235,227,.3); }
+.f-footer-name b { font-weight: 400; -webkit-text-stroke: 1px rgba(255,45,45,.55); }
+.f-socials { display: flex; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.f-socials a { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 50%; border: 1px solid rgba(241,235,227,.16); color: var(--f-bone); transition: background .3s, border-color .3s, color .3s; }
+.f-socials a:hover { background: var(--f-red); border-color: var(--f-red); color: #fff; }
+.f-wa { position: fixed; right: 24px; bottom: 24px; z-index: 90; height: 56px; min-width: 56px; padding: 0 15px; display: flex; align-items: center; gap: 0; border-radius: 99px; background: #25d366; color: #fff;
+  box-shadow: 0 14px 34px -10px rgba(37,211,102,.7), inset 0 1px 0 rgba(255,255,255,.3); transition: gap .4s cubic-bezier(.2,.7,.1,1), padding .4s cubic-bezier(.2,.7,.1,1), opacity .3s; }
+.f-wa svg { flex: none; position: relative; }
+.f-wa span { position: relative; max-width: 0; overflow: hidden; white-space: nowrap; font-family: "Geist Mono", monospace; font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; transition: max-width .4s cubic-bezier(.2,.7,.1,1); }
+.f-wa:hover { gap: 10px; padding: 0 22px 0 16px; }
+.f-wa:hover span { max-width: 200px; }
+.f-wa::before { content: ""; position: absolute; inset: 0; border-radius: inherit; animation: f-wa-pulse 2.4s infinite; }
+@keyframes f-wa-pulse { 0% { box-shadow: 0 0 0 0 rgba(37,211,102,.55); } 70%, 100% { box-shadow: 0 0 0 16px rgba(37,211,102,0); } }
+html:has(#site-header.menu-open) .f-wa, html:has(.f-loader) .f-wa { opacity: 0; pointer-events: none; }
+@media (max-width: 767px) {
+  .f-wa { right: 16px; bottom: 16px; height: 52px; min-width: 52px; padding: 0 13px; }
+  .f-footer-row { flex-direction: column; align-items: flex-start; }
+  .f-footer-row nav { flex-wrap: wrap; gap: 14px 22px; }
 }

@@ -31,6 +31,7 @@ export function initFounder(root: ParentNode = document) {
     const a = (e.target as HTMLElement).closest<HTMLAnchorElement>('a[href^="/#"]');
     if (!a || journey.classList.contains('f-static')) return;
     e.preventDefault(); e.stopPropagation();
+    if (document.getElementById('menu-panel')?.classList.contains('is-open')) document.getElementById('menu-close')?.click();
     jump(a.getAttribute('href')!.slice(2));
   };
   document.addEventListener('click', onNav, true);

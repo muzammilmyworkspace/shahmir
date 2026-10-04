@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { SITE } from '../data/content';
+import Socials from '../components/Socials.astro';
 const name = 'Shahmir Hashmat';
 const principles = [
   { n: '01', t: 'Clarity beats noise.', d: 'If a customer can’t repeat it, it doesn’t exist. Every brand starts with one sentence that is impossible to misunderstand.' },
@@ -102,9 +103,10 @@ const words = manifesto.split(' ').map((w) => ({ hl: w.startsWith('['), t: w.rep
   </section>
 
   <footer class="f-footer">
-    <div class="f-footer-marquee" aria-hidden="true"><div class="f-footer-track">{[0, 1, 2].map(() => <span>SHAHMIR HASHMAT <i>✦</i> </span>)}</div></div>
+    <p class="f-footer-name" aria-hidden="true">SHAHMIR <b>HASHMAT</b></p>
     <div class="f-footer-row">
       <span>© 2026 {name}</span>
+      <Socials />
       <nav><a href="#story">Story</a><a href="#philosophy">Principles</a><a href="#contact">Work with me</a><a href="/contact">Contact</a></nav>
       <a href="#top" class="f-top">Back to top ↑</a>
     </div>

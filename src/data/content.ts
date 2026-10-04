@@ -7,24 +7,34 @@ export const SITE = {
   title: 'The West Side Studios | Digital Design & Development Studio',
   description: 'We design and build websites, brands and interactive experiences that help ambitious businesses grow.',
   email: 'hello@thewestsidestudios.com', // PLACEHOLDER
+  whatsapp: '923000000000', // PLACEHOLDER: country code + number, digits only
   booking: '/contact',
 };
+
+// PLACEHOLDER profile links: replace with the real accounts
+export const SOCIALS = [
+  { label: 'Instagram', href: 'https://instagram.com/' },
+  { label: 'LinkedIn', href: 'https://linkedin.com/' },
+  { label: 'Facebook', href: 'https://facebook.com/' },
+  { label: 'TikTok', href: 'https://tiktok.com/' },
+  { label: 'YouTube', href: 'https://youtube.com/' },
+];
 
 export const NAV = {
   left: [{ label: 'Story', href: '/#story' }, { label: 'Founder', href: '/#founder' }],
   right: [{ label: 'Principles', href: '/#philosophy' }, { label: 'Contact', href: '/contact' }],
   menuPrimary: [
-    { label: 'Our Work', href: '/projects' },
-    { label: 'Inside Westside', href: '/about' },
-    { label: 'Get in touch', href: '/contact' },
-    { label: 'Blog', href: '/blog' },
+    { label: 'The Manifesto', href: '/#story' },
+    { label: 'The Founder', href: '/#founder' },
+    { label: 'How I work', href: '/#philosophy' },
+    { label: 'Work with me', href: '/#contact' },
   ],
   menuSecondary: [
-    { label: 'Our Work', href: '/projects' },
+    { label: 'Contact', href: '/contact' },
     { label: 'Privacy Policy', href: '/legal/privacy' },
     { label: 'Legal Notice', href: '/legal/notice' },
   ],
-  menuImages: ['/media/studio-face.webp', '/media/studio-circle.webp', '/media/studio-suit.webp'],
+  menuImages: ['/founder/menu-1.webp', '/founder/menu-2.webp', '/founder/menu-3.webp'],
 };
 
 export const HERO = {
