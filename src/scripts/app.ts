@@ -5,6 +5,7 @@ import barba from '@barba/core';
 import SplitType from 'split-type';
 import W from '../data/wordmark-letters.json';
 import { SITE } from '../data/content';
+import { initShahmir } from './shahmir';
 
 gsap.registerPlugin(ScrollTrigger);
 declare global { interface Window { __lenis?: Lenis; __lenisLocked?: boolean; __headerTheme?: () => void } }
@@ -408,6 +409,7 @@ async function initPage(root: ParentNode = document) {
   initBlogFilters(root);
   initContact(root);
   initInViewVideos(root);
+  onCleanup(initShahmir(root));
   await Promise.all([entry, statement]);
   initCases(root);
   ScrollTrigger.refresh();

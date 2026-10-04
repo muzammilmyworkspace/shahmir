@@ -1,138 +1,84 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import CtaBlack from '../components/CtaBlack.astro';
-import Footer from '../components/Footer.astro';
-import { HERO, STATEMENT, FOCUS, TESTIMONIALS, CLIENT_LOGOS, PROJECTS, FEATURED } from '../data/content';
-const mono = 'font-[Geist_Mono] font-normal uppercase leading-[1.2] tracking-[-0.01em]';
-const btn = 'inline-flex h-[48px] shrink-0 items-center justify-center rounded-[8px] bg-primary px-[40px] font-[Geist_Mono] text-[12px] font-semibold uppercase leading-[1.12] tracking-[-0.01em] text-white transition-opacity hover:opacity-90';
-const cases = FEATURED.map((s) => PROJECTS.find((p) => p.slug === s)!);
+import { SITE } from '../data/content';
+const team = [
+  { img: '/shahmir/team-a.webp', role: 'Strategy' },
+  { img: '/shahmir/team-b.webp', role: 'Creative' },
+  { img: '/shahmir/team-a.webp', role: 'Performance' },
+  { img: '/shahmir/team-b.webp', role: 'Content' },
+];
 ---
-<Layout namespace="home">
-  <!-- HERO: scroll-scrubbed film -->
-  <section id="video-project" style="height: 500vh; background: #fff;">
-    <div id="video-project-inner" class="sticky top-0 h-screen w-full overflow-hidden bg-white">
-      <div id="video-frame" class="absolute inset-0" style="transform: scale(0.55); overflow: hidden;">
-        <div id="hero-scene" class="hs-scene" aria-hidden="true">
-          <div class="hs-plate"></div>
-          <div class="hs-shadow"></div>
-          <div class="hs-man-wrap"><img class="hs-man" src="/hero/man.webp" alt="" decoding="async" fetchpriority="high" /></div>
-          <div class="hs-glow"></div>
+<Layout namespace="home" title="Shahmir Hashmat | The West Side Studios" description="The West Side Studios, founded by Shahmir Hashmat. Brands, campaigns and websites people can’t scroll past.">
+  <section id="sh" class="sh" aria-label="Shahmir Hashmat, founder of The West Side Studios">
+    <div class="sh-stage">
+      <canvas class="sh-waves" aria-hidden="true"></canvas>
+      <div class="sh-glow" aria-hidden="true"></div>
+      <div class="sh-outline" aria-hidden="true"><span>SHAHMIR</span></div>
+
+      <div class="sh-rig" aria-hidden="true">
+        <div class="sh-rings"><i></i><i></i><i></i></div>
+        <div class="sh-circle"></div>
+        <div class="sh-team">
+          {team.map((t, i) => <figure class={`sh-member m${i}`}><img src={t.img} alt="" /><figcaption>{t.role}</figcaption></figure>)}
         </div>
+        <div class="sh-figure"><img src="/shahmir/shahmir.webp" alt="" /></div>
+        <div class="sh-floor"></div>
       </div>
-      <div id="hero-text" class="absolute bottom-6 left-6 right-6 flex flex-col gap-6 lg:bottom-10 lg:left-10 lg:right-10 lg:flex-row lg:items-end lg:justify-between lg:gap-8">
-        <h1 id="hero-headline" class="font-[Geist] text-[32px] font-normal leading-[1.04] will-change-[transform,opacity]" style="mix-blend-mode: difference;">
-          <span data-reveal-entry class="block whitespace-pre-line text-white">{HERO.line1}</span>
-          <span data-reveal-entry class="block whitespace-pre-line text-white opacity-40">{HERO.line2}</span>
-        </h1>
-        <div id="hero-aside" class="flex items-end gap-6 will-change-[transform,opacity]">
-          <p data-reveal-entry class={`max-w-[216px] text-[12px] text-[#4d4d4d] ${mono}`}>{HERO.aside}</p>
-          <a href="/contact" class={btn}>{HERO.cta}</a>
-        </div>
+
+      <!-- 00 hook: zoomed portrait -->
+      <div class="sh-panel sh-hook" data-panel="0">
+        <p class="sh-eyebrow"><span class="sh-dot"></span>Shahmir Hashmat · Founder, The West Side Studios</p>
+        <h1 class="sh-hook-title"><span>We build brands</span><em>people can’t scroll past.</em></h1>
+        <div class="sh-scroll"><i></i><span>Scroll to meet the studio</span></div>
       </div>
-      <div id="orange-overlay" class="absolute inset-0 bg-primary" style="opacity: 0;"></div>
-      <div id="project-content" class="absolute inset-0 flex flex-col items-center justify-center" style="opacity: 0; transform: translateY(60px);">
-        <div class="mx-auto max-w-2xl px-8 text-center text-white">
-          <h2 data-reveal-content class="font-[Geist] text-[40px] font-normal leading-[1.04] tracking-[-0.01em]">{HERO.statement}</h2>
-        </div>
+
+      <!-- 01 left pose, content on the right -->
+      <div class="sh-panel sh-right" data-panel="1">
+        <p class="sh-num">01 <span>The Founder</span></p>
+        <h2>Marketing that <em>moves people.</em></h2>
+        <p class="sh-copy">Shahmir started The West Side Studios to give ambitious brands one partner for strategy, story and growth. Every campaign begins with one question: why should anyone care?</p>
+        <ul class="sh-tags"><li>Brand strategy</li><li>Positioning</li><li>Creative direction</li></ul>
       </div>
+
+      <!-- 02 right pose, content on the left -->
+      <div class="sh-panel sh-left" data-panel="2">
+        <p class="sh-num">02 <span>The Agency</span></p>
+        <h2>Strategy, story and scale <em>under one roof.</em></h2>
+        <ol class="sh-list">
+          <li><b>Brand identity</b><span>Names, marks and visual systems</span></li>
+          <li><b>Performance marketing</b><span>Paid social, search and funnels</span></li>
+          <li><b>Content production</b><span>Shoots, reels and campaigns</span></li>
+          <li><b>Websites</b><span>Sites that sell while you sleep</span></li>
+        </ol>
+      </div>
+
+      <!-- 03 zoom out: the vision -->
+      <div class="sh-panel sh-center" data-panel="3">
+        <p class="sh-num">03 <span>The Vision</span></p>
+        <h2 class="sh-statement">Every brand has a story.<br /><em>We make the world listen.</em></h2>
+      </div>
+
+      <!-- 04 the team -->
+      <div class="sh-panel sh-teamcopy" data-panel="4">
+        <p class="sh-num">04 <span>The Team</span></p>
+        <h2>The people <em>behind the brands.</em></h2>
+      </div>
+
+      <nav class="sh-progress" aria-hidden="true">
+        {['Hook', 'Founder', 'Agency', 'Vision', 'Team'].map((l, i) => <span data-step={i}><i></i>{l}</span>)}
+      </nav>
     </div>
   </section>
 
-  <!-- STATEMENT + 3D object -->
-  <section id="statement" class="relative flex h-screen w-full items-center justify-center overflow-hidden bg-black">
-    <p id="statement-text" class="relative z-10 mx-auto w-[90vw] max-w-[599px] text-center font-geist text-[clamp(22px,5vw,40px)] font-normal leading-[1.04] tracking-[-0.01em] text-white">{STATEMENT}</p>
-    <div id="statement-object" class="pointer-events-none absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 -mt-[24px]" style="width: min(280px, 90vw); height: min(280px, 90vw);"></div>
-  </section>
-
-  <!-- FOCUS AREAS -->
-  <section class="relative bg-white px-8 py-[60px] md:flex md:min-h-screen md:flex-col md:justify-center md:py-[80px]">
-    <div class="relative">
-      <span class={`mb-8 block text-[12px] text-primary md:mb-12 ${mono}`}>Focus Areas</span>
-      <div id="focus-list" class="flex flex-col gap-6 md:gap-8">
-        {FOCUS.map((f, i) => (
-          <div class="focus-item cursor-pointer border-b border-[#e9e9e9] py-[6px]" data-index={i}>
-            <div class="focus-content transition-opacity duration-300">
-              <div class="flex flex-col gap-2 md:hidden">
-                <h2 class="font-[Geist] text-[28px] font-normal leading-[1.1] tracking-[-0.01em] text-black">{f.title}</h2>
-                <div class="flex flex-wrap gap-x-4 gap-y-1 pb-1">{f.tags.map((t) => <span class={`text-[10px] text-[#666] ${mono}`}>{t}</span>)}</div>
-              </div>
-              <div class="hidden w-full items-end md:flex">
-                <h2 class="w-[58%] font-[Geist] text-[clamp(28px,3.33vw,48px)] font-normal leading-[1.1] tracking-[-0.01em] text-black xl:w-[75%]">{f.title}</h2>
-                <div class="grid w-[42%] grid-cols-3 items-center gap-6 pb-[6px] xl:w-[25%]">{f.tags.map((t) => <span class={`text-[11px] text-[#666] ${mono}`}>{t}</span>)}</div>
-              </div>
-            </div>
-          </div>
-        ))}
+  <section class="sh-end">
+    <canvas class="sh-waves sh-waves-end" aria-hidden="true"></canvas>
+    <div class="sh-end-inner">
+      <p class="sh-eyebrow"><span class="sh-dot"></span>The West Side Studios</p>
+      <h2>Ready to be <em>impossible to ignore?</em></h2>
+      <div class="sh-end-row">
+        <a href="/contact" class="sh-btn">Book a strategy call <span>→</span></a>
+        <a href={`mailto:${SITE.email}`} class="sh-link">{SITE.email}</a>
       </div>
-      <div class="focus-medias" aria-hidden="true">{FOCUS.map((f, i) => <img src={f.img} alt="" data-index={i} />)}</div>
-      <div id="media-container" class="pointer-events-none absolute hidden overflow-hidden rounded-[12px] md:block" style="width:332px; height:332px; top: 0; left: 50%;"></div>
     </div>
   </section>
-
-  <!-- BUILDING WORLDWIDE + globe -->
-  <div class="bg-white px-8 pb-0 pt-[80px] text-center md:px-16 md:pt-[100px]">
-    <h2 class="whitespace-pre-line font-[Geist] text-[72px] font-normal leading-[1.0] tracking-[-0.03em] text-black">{'Building\nWorldwide'}</h2>
-  </div>
-  <section id="globe-scene" data-header-theme="light" style="position: relative; height: 200vh; background: #ffffff;">
-    <div style="position: sticky; top: 0; height: 100vh; width: 100%; overflow: hidden;">
-      <canvas id="globe-canvas" style="position: absolute; inset: 0; width: 100%; height: 100%; display: block;"></canvas>
-      <div id="globe-cards" style="position: absolute; inset: 0; pointer-events: none;"></div>
-    </div>
-  </section>
-
-  <!-- TESTIMONIALS -->
-  <section id="testimonials-section" class="bg-white px-6 py-16 md:flex md:min-h-screen md:flex-col md:justify-center lg:px-12 lg:py-24">
-    <div class="flex flex-col gap-20 lg:flex-row lg:gap-96">
-      <div class="lg:w-[38%]">
-        <div class="mb-8 h-[1px] bg-black/10"><div id="testimonial-progress" class="h-full bg-black" style="width: 0%;"></div></div>
-        <div id="testimonial-card">
-          {TESTIMONIALS.map((t, i) => (
-            <div class="testimonial-slide grid grid-cols-[auto_1fr_auto] gap-5 items-start" data-index={i} style={i ? 'display:none' : ''}>
-              <div class="flex-shrink-0 overflow-hidden grid place-items-center text-white font-[Geist] text-[20px]" style={`width: 73px; height: 98px; background:${t.tone}`}>{t.initials}</div>
-              <div class="flex min-w-0 flex-col gap-6 lg:w-[250px]">
-                <p class="font-[Geist] text-[16px] font-normal text-black" style="line-height: 104%; letter-spacing: -0.01em;">{t.quote}</p>
-                <p class="font-[Geist] text-[14px] font-normal text-black" style="line-height: 104%; letter-spacing: -0.01em;">{t.author}</p>
-              </div>
-              <span class="font-[Geist_Mono] text-[12px] font-normal uppercase whitespace-nowrap text-black" style="line-height: 120%; letter-spacing: -0.01em;">{String(i + 1).padStart(2, '0')} / {String(TESTIMONIALS.length).padStart(2, '0')}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-      {CLIENT_LOGOS.length > 0 && <div class="lg:w-[62%]">
-        <p class="mb-6 font-[Geist] text-[14px] font-normal text-black" style="line-height: 120%; letter-spacing: -0.01em;">Trusted by brands worldwide:</p>
-        <div class="grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-3 lg:gap-x-8 lg:gap-y-14">
-          {CLIENT_LOGOS.map((l) => <div class="flex items-center justify-start"><img src={l.src} alt={l.alt} class="max-w-full object-contain" style={`width:${l.w}px;height:${l.h}px;filter:brightness(0)`} /></div>)}
-        </div>
-      </div>}
-    </div>
-  </section>
-
-  <!-- FEATURED CASES -->
-  <div data-cases-wrapper style={`height: ${cases.length * 100}dvh`}>
-    <section id="featured-cases" class="sticky top-0 overflow-hidden" style="z-index: 2; height: 100dvh;">
-      <div class="relative w-full h-full">
-        {cases.map((c, i) => (
-          <div class="absolute inset-0" style={`z-index: ${i + 1};${i ? ' transform: translateY(100%);' : ''}`} data-case-images={i}>
-            <div class="absolute inset-0 z-[1]"><video src={c.video} poster={c.poster} autoplay muted loop playsinline preload="metadata" class="w-full h-full object-cover object-center"></video></div>
-            <div class="absolute inset-0 z-[3] bg-black/[32%]"></div>
-          </div>
-        ))}
-        {cases.map((c, i) => (
-          <div class:list={['absolute inset-0 z-[50]', i && 'opacity-0 pointer-events-none']} data-case-text={i}>
-            <div class="absolute bottom-[40%] left-10 text-white max-w-[255px] leading-[104%] flex flex-col gap-3">
-              <div data-case-reveal class="text-xs font-semibold font-[Geist_Mono] uppercase tracking-widest block">{c.client.toUpperCase()}</div>
-              <h2 data-case-reveal class="text-2xl font-normal font-geist">{c.title}</h2>
-            </div>
-            <div class="absolute bottom-6 left-1/2 -translate-x-1/2 text-center max-w-[280px] lg:bottom-[30%] lg:right-10 lg:left-auto lg:translate-x-0 lg:text-left lg:max-w-[220px] flex flex-col gap-[76px]">
-              <p data-case-reveal class="text-sm text-white leading-relaxed">{c.overview.split('. ')[0]}.</p>
-              <a href={`/projects/${c.slug}`} class="text-xs uppercase tracking-widest font-semibold text-white hover:text-white/60 transition-colors">View project</a>
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
-  </div>
-
-  <CtaBlack />
-  <Footer />
 </Layout>
