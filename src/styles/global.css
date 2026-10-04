@@ -299,8 +299,8 @@ body:has(.f-journey) { background: var(--f-black); }
 .f-sun { position: absolute; left: 64%; top: 44%; width: 66vh; height: 66vh; margin: -33vh 0 0 -33vh; border-radius: 50%; z-index: 1;
   background: radial-gradient(circle at 74% 44%, #ffd6aa 0%, #ff6a3a 15%, #d3130f 36%, #7a0508 64%, #3a0205 100%);
   box-shadow: 0 0 180px 40px rgba(227,20,27,.25), inset -20px 0 50px rgba(255,190,140,.35); }
-.f-name { position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-46%); z-index: 2; display: flex; justify-content: center; gap: .02em; margin: 0;
-  font-family: var(--f-display); font-weight: 400; font-size: 27.5vw; line-height: .78; letter-spacing: -.01em; color: var(--f-bone); white-space: nowrap; overflow: hidden; padding: .04em 0; }
+.f-name { position: absolute; left: 0; right: 0; top: 44%; transform: translateY(-50%); z-index: 2; display: flex; justify-content: center; gap: .02em; margin: 0;
+  font-family: var(--f-display); font-weight: 400; font-size: min(27.5vw, 50vh); line-height: .78; letter-spacing: -.01em; color: var(--f-bone); white-space: nowrap; overflow: hidden; padding: .04em 0; }
 .f-name span { display: inline-block; will-change: transform; }
 .f-name-r { color: var(--f-red); }
 .f-figure { position: absolute; left: 58%; bottom: 0; width: 0; height: 94vh; z-index: 3; transform-origin: 0 100%; will-change: transform; filter: drop-shadow(0 40px 60px rgba(0,0,0,.7)); }
