@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { SITE } from '../data/content';
+import { SITE, SERVICES, REVIEWS } from '../data/content';
 import Socials from '../components/Socials.astro';
 const name = 'Shahmir Hashmat';
 const principles = [
@@ -10,6 +10,15 @@ const principles = [
   { n: '04', t: 'Build for the long game.', d: 'Trends fade. Trust compounds. The goal is a brand people still choose in ten years.' },
 ];
 const manifesto = 'Most brands are built to be seen. I build brands to be [remembered]. Strategy first, [story] always, and the discipline to see it through until the market [listens].';
+const icons: Record<string, string> = {
+  web: '<rect x="6" y="10" width="52" height="38" rx="4"/><path d="M6 19h52M12 14.5h2M17 14.5h2M22 14.5h2M22 56h20M32 48v8"/><path d="M16 28h18M16 35h12M40 27h10v14H40z"/>',
+  ads: '<path d="M8 40V24l30-12v40L8 40zM8 24h-.5A3.5 3.5 0 0 0 4 27.5v9A3.5 3.5 0 0 0 7.5 40H8M14 41l4 13h7l-3-11"/><path d="M46 22c3 2.5 4.5 6 4.5 10S49 39.5 46 42M52 16c5 4.5 7.5 10 7.5 16S57 43.5 52 48"/>',
+  shop: '<path d="M10 22h44l-3 32H13L10 22z"/><path d="M22 28v-8a10 10 0 0 1 20 0v8"/><path d="M24 40l6 6 11-12"/>',
+  cart: '<path d="M4 8h8l7 32h32l6-22H15"/><circle cx="23" cy="50" r="4"/><circle cx="46" cy="50" r="4"/><path d="M30 26l6 6 10-10"/>',
+  bolt: '<path d="M36 4L12 36h18l-4 24 26-34H33l3-22z"/>',
+  brand: '<circle cx="32" cy="32" r="24"/><circle cx="32" cy="32" r="14"/><circle cx="32" cy="32" r="4"/><path d="M32 2v10M32 52v10M2 32h10M52 32h10"/>',
+};
+const rowA = REVIEWS.slice(0, 4), rowB = REVIEWS.slice(4);
 const words = manifesto.split(' ').map((w) => ({ hl: w.startsWith('['), t: w.replace(/[\[\]]/g, '') }));
 ---
 <Layout namespace="home" title={`${name} | Founder, The West Side Studios`} description={`${name} — founder of The West Side Studios and The Sourcers. Building brands people remember.`}>
@@ -88,17 +97,75 @@ const words = manifesto.split(' ').map((w) => ({ hl: w.startsWith('['), t: w.rep
         <blockquote><p>“A brand is a promise<br /><em>you keep in public.</em>”</p><footer>— {name}</footer></blockquote>
       </div>
 
-      <!-- 5 · work with me (figure left) -->
-      <div class="f-step f-work" data-step="5" id="contact">
-        <p class="f-label">Work with me</p>
-        <h2>Have a brand<br /><em>worth building?</em></h2>
-        <p class="f-lead">Tell me where your business is today and where you want it to be. I reply to every serious enquiry personally.</p>
-        <div class="f-work-row">
-          <a href="/contact" class="f-btn f-btn-lg" data-magnetic>Start a conversation <span>↗</span></a>
-          <a href={`mailto:${SITE.email}`} class="f-mail">{SITE.email}</a>
+
+    </div>
+  </section>
+
+  <!-- services · horizontal rail -->
+  <section class="f-services" id="services">
+    <div class="f-services-stage">
+      <div class="f-services-glow" aria-hidden="true"></div>
+      <div class="f-services-head">
+        <p class="f-label">What I build for you</p>
+        <h2>Everything your brand needs<br /><em>to sell online.</em></h2>
+        <div class="f-services-progress" aria-hidden="true"><i></i></div>
+      </div>
+      <div class="f-services-rail">
+        {SERVICES.map((s) => (
+          <article class="f-svc">
+            <div class="f-svc-top">
+              <span class="f-svc-n">{s.n}</span>
+              <svg class="f-svc-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={icons[s.icon]} />
+            </div>
+            <div class="f-svc-body">
+              <h3>{s.t}</h3>
+              <p>{s.d}</p>
+              <ul>{s.tags.map((t) => <li>{t}</li>)}</ul>
+            </div>
+            <a href="/contact" class="f-svc-link">Start a project <span>↗</span></a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- testimonials · two opposite marquees -->
+  <section class="f-reviews" id="reviews">
+    <div class="f-reviews-head">
+      <p class="f-label">Kind words</p>
+      <h2>Founders don’t hire me twice<br /><em>by accident.</em></h2>
+    </div>
+    {[rowA, rowB].map((row, ri) => (
+      <div class:list={['f-reviews-row', ri && 'is-rev']}>
+        <div class="f-reviews-track">
+          {[0, 1].map((k) => row.map((r) => (
+            <figure class="f-review" aria-hidden={k ? 'true' : undefined}>
+              <div class="f-review-top"><span class="f-stars" aria-label="5 out of 5">★★★★★</span><span class="f-review-tag">{r.s}</span></div>
+              <blockquote>“{r.q}”</blockquote>
+              <figcaption><span class="f-avatar">{r.n.split(' ').map((w) => w[0]).join('')}</span><span><b>{r.n}</b><small>{r.r}</small></span></figcaption>
+            </figure>
+          )))}
         </div>
       </div>
+    ))}
+  </section>
 
+  <!-- work with me -->
+  <section class="f-cta" id="contact">
+    <div class="f-hero-bg" aria-hidden="true"></div>
+    <svg class="f-arcs f-cta-arcs" viewBox="-500 -500 1000 1000" aria-hidden="true">
+      {Array.from({ length: 9 }, (_, i) => <circle r={170 + i * 38} fill="none" stroke-dasharray={i % 3 === 0 ? '2 10' : i % 3 === 1 ? '60 14' : ''} />)}
+    </svg>
+    <div class="f-sun f-cta-sun" aria-hidden="true"></div>
+    <img class="f-cta-figure" src="/shahmir/shahmir.webp" alt="Shahmir Hashmat" loading="lazy" />
+    <div class="f-cta-copy">
+      <p class="f-label">Work with me</p>
+      <h2>Have a brand<br /><em>worth building?</em></h2>
+      <p class="f-lead">Tell me where your business is today and where you want it to be. I reply to every serious enquiry personally.</p>
+      <div class="f-work-row">
+        <a href="/contact" class="f-btn f-btn-lg" data-magnetic>Start a conversation <span>↗</span></a>
+        <a href={`mailto:${SITE.email}`} class="f-mail">{SITE.email}</a>
+      </div>
     </div>
   </section>
 
@@ -107,7 +174,7 @@ const words = manifesto.split(' ').map((w) => ({ hl: w.startsWith('['), t: w.rep
     <div class="f-footer-row">
       <span>© 2026 {name}</span>
       <Socials />
-      <nav><a href="#story">Story</a><a href="#philosophy">Principles</a><a href="#contact">Work with me</a><a href="/contact">Contact</a></nav>
+      <nav><a href="#story">Story</a><a href="#services">Services</a><a href="#reviews">Reviews</a><a href="#contact">Work with me</a><a href="/contact">Contact</a></nav>
       <a href="#top" class="f-top">Back to top ↑</a>
     </div>
   </footer>

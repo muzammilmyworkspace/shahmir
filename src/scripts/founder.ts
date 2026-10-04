@@ -74,7 +74,7 @@ export function initFounder(root: ParentNode = document) {
 
   /* ---------- the journey: one pinned stage, the founder moves through every chapter ---------- */
   const words = $$('.f-manifesto-text .w', root);
-  const anchors: Record<string, number> = { top: 0, story: 1.9, founder: 4.4, philosophy: 7.7, contact: 12.2 };
+  const anchors: Record<string, number> = { top: 0, story: 1.9, founder: 4.4, philosophy: 7.7 };
   let jump = (id: string) => {};
   if (reduced()) {
     journey.classList.add('f-static');
@@ -134,19 +134,12 @@ export function initFounder(root: ParentNode = document) {
     tl.to('.f-figure', { opacity: 0.2, scale: 0.92, duration: 0.8 }, 8.6)
       .to('.f-sun', { autoAlpha: 0.3, scale: 0.8, duration: 0.8 }, 8.6);
     show('.f-promise', 9.8);
-    hide('.f-promise', 11.0);
-
-    // 5 · back on the left, side pose, work with me
-    tl.to('.f-figure', { autoAlpha: 0, duration: 0.5 }, 10.6)
-      .set('.f-figure', { x: at.left }, 11.1)
-      .set(follow, { x: at.left }, 11.1)
-      .fromTo('.f-figure', { autoAlpha: 0, scale: 0.86, yPercent: 6 }, { autoAlpha: 1, scale: 0.94, yPercent: 0, duration: 0.8, immediateRender: false }, 11.2)
-      .to('.f-sun', { autoAlpha: 1, scale: 1, duration: 0.8 }, 11.2);
-    show('.f-work', 11.7);
-    tl.to({}, { duration: 0.6 }, 12.3);
+    tl.to({}, { duration: 0.8 }, 10.4);
 
     const st = ScrollTrigger.create({ trigger: journey, start: 'top top', end: 'bottom bottom', scrub: 0.9, animation: tl, invalidateOnRefresh: true });
     jump = (id) => {
+      const el = !(id in anchors) && $('#' + id, root);
+      if (el) { (window as any).__lenis ? (window as any).__lenis.scrollTo(el, { duration: 1.6 }) : el.scrollIntoView({ behavior: 'smooth' }); return; }
       const t = anchors[id] ?? 0;
       const y = st.start + (st.end - st.start) * (t / tl.duration());
       (window as any).__lenis ? (window as any).__lenis.scrollTo(y, { duration: 1.6 }) : scrollTo({ top: y, behavior: 'smooth' });
@@ -161,6 +154,37 @@ export function initFounder(root: ParentNode = document) {
       addEventListener('pointermove', move, { passive: true });
       later(() => removeEventListener('pointermove', move));
     }
+  }
+
+  /* ---------- services: the rail slides sideways while the section is pinned ---------- */
+  const svc = $('.f-services', root), rail = $('.f-services-rail', root);
+  if (svc && rail && !reduced()) {
+    const mm = gsap.matchMedia();
+    mm.add('(min-width: 768px)', () => {
+      const dist = () => Math.max(0, rail.scrollWidth - innerWidth + innerWidth * 0.06);
+      const tl = gsap.timeline({ defaults: { ease: 'none' } });
+      tl.to(rail, { x: () => -dist(), duration: 1 }, 0)
+        .fromTo('.f-services-progress i', { scaleX: 0 }, { scaleX: 1, duration: 1 }, 0)
+        .to('.f-services-glow', { xPercent: -40, duration: 1 }, 0);
+      const st = ScrollTrigger.create({ trigger: svc, start: 'top top', end: () => '+=' + (dist() + innerHeight * 0.3), pin: '.f-services-stage', scrub: 0.8, animation: tl, invalidateOnRefresh: true });
+      return () => { st.kill(); tl.kill(); };
+    });
+    $$('.f-svc', root).forEach((card) => {
+      const tw = gsap.from(card, { y: 80, autoAlpha: 0, duration: 1.1, ease: 'expo.out', scrollTrigger: { trigger: svc, start: 'top 70%' } });
+      later(() => tw.kill());
+    });
+    later(() => mm.revert());
+  }
+
+  /* ---------- reviews + work with me: rise in ---------- */
+  if (!reduced()) {
+    const rh = gsap.from('.f-reviews-head > *, .f-reviews-row', { y: 60, autoAlpha: 0, duration: 1.2, ease: 'expo.out', stagger: 0.1, scrollTrigger: { trigger: '.f-reviews', start: 'top 75%' } });
+    const ct = gsap.timeline({ scrollTrigger: { trigger: '.f-cta', start: 'top 65%' } });
+    ct.from('.f-cta-figure', { xPercent: -30, autoAlpha: 0, duration: 1.6, ease: 'expo.out' }, 0)
+      .from('.f-cta-sun', { scale: 0.5, autoAlpha: 0, duration: 1.8, ease: 'expo.out' }, 0)
+      .from('.f-cta-arcs', { autoAlpha: 0, scale: 0.85, duration: 2, ease: 'expo.out' }, 0.1)
+      .from('.f-cta-copy > *', { y: 50, autoAlpha: 0, duration: 1.1, ease: 'expo.out', stagger: 0.08 }, 0.3);
+    later(() => { rh.kill(); ct.kill(); });
   }
 
   /* ---------- cursor + magnetic buttons ---------- */

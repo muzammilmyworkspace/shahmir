@@ -21,12 +21,14 @@ export const SOCIALS = [
 ];
 
 export const NAV = {
-  left: [{ label: 'Story', href: '/#story' }, { label: 'Founder', href: '/#founder' }],
-  right: [{ label: 'Principles', href: '/#philosophy' }, { label: 'Contact', href: '/contact' }],
+  left: [{ label: 'Story', href: '/#story' }, { label: 'Services', href: '/#services' }],
+  right: [{ label: 'Reviews', href: '/#reviews' }, { label: 'Contact', href: '/contact' }],
   menuPrimary: [
     { label: 'The Manifesto', href: '/#story' },
     { label: 'The Founder', href: '/#founder' },
     { label: 'How I work', href: '/#philosophy' },
+    { label: 'Services', href: '/#services' },
+    { label: 'Reviews', href: '/#reviews' },
     { label: 'Work with me', href: '/#contact' },
   ],
   menuSecondary: [
@@ -73,6 +75,27 @@ export const TESTIMONIALS = [
   { quote: '“Client quote goes here: what changed for their business after working with the studio.”', author: 'Client name, Company', initials: 'WS', tone: '#f43c00' },
   { quote: '“Second client quote: a sentence about the process, the team and the result.”', author: 'Client name, Company', initials: 'WS', tone: '#191919' },
   { quote: '“Third client quote: one line on the launch and how people responded.”', author: 'Client name, Company', initials: 'WS', tone: '#7a0a0a' },
+];
+
+export const SERVICES = [
+  { n: '01', icon: 'web', t: 'Website Building', d: 'Fast, story-led websites that look premium and turn visitors into enquiries.', tags: ['Design', 'Development', 'SEO', 'Speed'] },
+  { n: '02', icon: 'ads', t: 'Meta & Google Ads', d: 'Campaigns built on strategy and creative, measured on revenue, not likes.', tags: ['Meta Ads', 'Google Ads', 'Creatives', 'Tracking'] },
+  { n: '03', icon: 'shop', t: 'Shopify Stores', d: 'Shopify stores designed to sell: clean product pages, smooth checkout, built to scale.', tags: ['Store setup', 'Theme design', 'Apps', 'Migration'] },
+  { n: '04', icon: 'cart', t: 'Ecommerce Growth', d: 'From product to profit: offers, funnels and retention that grow your store month after month.', tags: ['Strategy', 'Funnels', 'Email & SMS', 'CRO'] },
+  { n: '05', icon: 'bolt', t: 'Automations', d: 'Systems that work while you sleep: lead follow-ups, CRM, WhatsApp and order flows.', tags: ['CRM', 'WhatsApp', 'Zapier / Make', 'AI agents'] },
+  { n: '06', icon: 'brand', t: 'Brand Strategy', d: 'Positioning, identity and story, so every touchpoint says one clear thing.', tags: ['Positioning', 'Identity', 'Messaging', 'Content'] },
+];
+
+/* PLACEHOLDER reviews: replace every quote, name and brand with real client feedback before launch. */
+export const REVIEWS = [
+  { q: 'Sample review: our new website finally looks like the brand we are building, and enquiries started coming in the first week.', n: 'Client Name', r: 'Founder, Brand Name', s: 'Website' },
+  { q: 'Sample review: the Meta ads were rebuilt from scratch and our cost per purchase dropped while sales went up.', n: 'Client Name', r: 'CEO, Brand Name', s: 'Meta Ads' },
+  { q: 'Sample review: Shopify store launched on time, fast and easy for my team to manage.', n: 'Client Name', r: 'Owner, Store Name', s: 'Shopify' },
+  { q: 'Sample review: the automations save us hours every day. Leads get a WhatsApp reply in seconds.', n: 'Client Name', r: 'Director, Company Name', s: 'Automations' },
+  { q: 'Sample review: clear strategy, honest advice and a team that actually cares about the numbers.', n: 'Client Name', r: 'Co-founder, Brand Name', s: 'Ecommerce' },
+  { q: 'Sample review: Google Ads finally bring us customers who are ready to buy, not just clicks.', n: 'Client Name', r: 'Founder, Company Name', s: 'Google Ads' },
+  { q: 'Sample review: they turned our product into a story people remember. The rebrand changed everything.', n: 'Client Name', r: 'Founder, Brand Name', s: 'Branding' },
+  { q: 'Sample review: one partner for the website, ads and automation, and everything works together.', n: 'Client Name', r: 'CEO, Company Name', s: 'Full service' },
 ];
 /* Add client logos here (src, alt, w, h). The grid stays hidden while this is empty. */
 export const CLIENT_LOGOS: { src: string; alt: string; w: number; h: number }[] = [];
