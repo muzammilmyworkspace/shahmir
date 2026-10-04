@@ -98,7 +98,7 @@ export function initFounder(root: ParentNode = document) {
       .to('.f-name-l', { xPercent: -38, autoAlpha: 0.14, duration: 1.2 }, 0)
       .to('.f-name-r', { xPercent: 52, autoAlpha: 0.14, duration: 1.2 }, 0)
       .to('.f-arcs', { rotate: 40, scale: 1.15, duration: 1.2 }, 0)
-      .to(['.f-figure', '.f-seated'], { x: at.right, scale: 0.94, duration: 1 }, 0.2)
+      .to('.f-figure', { x: at.right, scale: 0.94, duration: 1 }, 0.2)
       .to(follow, { x: at.right, duration: 1 }, 0.2)
       .to('.f-pose-a', { opacity: 0, duration: 0.5 }, 0.45).to('.f-pose-b', { opacity: 1, duration: 0.5 }, 0.45);
 
@@ -109,14 +109,14 @@ export function initFounder(root: ParentNode = document) {
     hide('.f-manifesto', 2.9);
 
     // 2 · founder steps left, his story on the right
-    tl.to(['.f-figure', '.f-seated'], { x: at.left, duration: 1 }, 3.0)
+    tl.to('.f-figure', { x: at.left, duration: 1 }, 3.0)
       .to(follow, { x: at.left, duration: 1 }, 3.0)
       .to('.f-pose-b', { opacity: 0, duration: 0.5 }, 3.25).to('.f-pose-a', { opacity: 1, duration: 0.5 }, 3.25);
     show('.f-founder', 3.6);
     hide('.f-founder', 5.0);
 
     // 3 · centre stage, the four rules arrive from both sides
-    tl.to(['.f-figure', '.f-seated'], { x: at.mid, scale: 0.86, duration: 1 }, 5.1)
+    tl.to('.f-figure', { x: at.mid, scale: 0.86, duration: 1 }, 5.1)
       .to(follow, { x: at.mid, duration: 1 }, 5.1)
       .to('.f-name-l, .f-name-r', { autoAlpha: 0.06, duration: 1 }, 5.1);
     tl.set('.f-how', { autoAlpha: 1 }, 5.6)
@@ -129,17 +129,15 @@ export function initFounder(root: ParentNode = document) {
     });
     tl.to('.f-how', { autoAlpha: 0, scale: 0.96, duration: 0.5, ease: 'power2.in' }, 8.2);
 
-    // 4 · the boss chair: he sits, the image dims, the promise lands
-    tl.to('.f-figure', { autoAlpha: 0, scale: 0.8, duration: 0.6 }, 8.4)
-      .fromTo('.f-seated', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.6, immediateRender: false }, 8.6)
-      .to('.f-seated', { opacity: 0.2, duration: 0.6 }, 9.4)
-      .to('.f-sun', { autoAlpha: 0.3, scale: 0.8, duration: 0.6 }, 9.4);
+    // 4 · the image dims, the promise lands
+    tl.to('.f-figure', { opacity: 0.2, scale: 0.92, duration: 0.8 }, 8.6)
+      .to('.f-sun', { autoAlpha: 0.3, scale: 0.8, duration: 0.8 }, 8.6);
     show('.f-promise', 9.8);
     hide('.f-promise', 11.0);
 
     // 5 · back on the left, side pose, work with me
-    tl.to('.f-seated', { autoAlpha: 0, duration: 0.5 }, 11.0)
-      .set(['.f-figure', '.f-seated'], { x: at.left }, 11.1)
+    tl.to('.f-figure', { autoAlpha: 0, duration: 0.5 }, 10.6)
+      .set('.f-figure', { x: at.left }, 11.1)
       .set(follow, { x: at.left }, 11.1)
       .fromTo('.f-figure', { autoAlpha: 0, scale: 0.86, yPercent: 6 }, { autoAlpha: 1, scale: 0.94, yPercent: 0, duration: 0.8, immediateRender: false }, 11.2)
       .to('.f-sun', { autoAlpha: 1, scale: 1, duration: 0.8 }, 11.2);

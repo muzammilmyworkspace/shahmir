@@ -307,8 +307,6 @@ body:has(.f-journey) { background: var(--f-black); }
 .f-par { position: absolute; left: 0; bottom: 0; height: 100%; }
 .f-pose { position: absolute; bottom: 0; left: 0; height: 100%; width: auto; max-width: none; display: block; transform: translateX(-50%); }
 .f-pose-b { transform: translateX(-50%) scaleX(-1); opacity: 0; }
-.f-seated { position: absolute; left: 58%; bottom: -4vh; width: 0; height: 96vh; z-index: 3; opacity: 0; visibility: hidden; transform-origin: 0 100%; }
-.f-seated img { position: absolute; bottom: 0; left: 0; height: 100%; width: auto; max-width: none; transform: translateX(-50%); filter: drop-shadow(0 30px 60px rgba(0,0,0,.6)); }
 .f-step { position: absolute; inset: 0; z-index: 5; pointer-events: none; }
 .f-step a, .f-step .f-btn { pointer-events: auto; }
 .f-step:not(.f-cover) { visibility: hidden; }
@@ -373,7 +371,7 @@ body:has(.f-journey) { background: var(--f-black); }
 .f-static .f-step { position: relative; inset: auto; visibility: visible; min-height: 100vh; padding-top: 120px; padding-bottom: 60px; }
 .f-static .f-rule { position: relative; inset: auto; width: auto; margin-top: 16px; }
 .f-static .f-how-head { position: relative; top: 0; }
-.f-static .f-figure, .f-static .f-seated, .f-static .f-name, .f-static .f-sun, .f-static .f-arcs { display: none; }
+.f-static .f-figure, .f-static .f-name, .f-static .f-sun, .f-static .f-arcs { display: none; }
 
 /* footer */
 .f-footer { background: var(--f-black); color: var(--f-bone); border-top: 1px solid rgba(241,235,227,.08); overflow: hidden; }
@@ -394,7 +392,6 @@ body:has(.f-journey) { background: var(--f-black); }
   .f-figure { left: 50%; height: 78vh; }
   .f-sun { left: 50%; top: 34%; width: 46vh; height: 46vh; margin: -23vh 0 0 -23vh; }
   .f-arcs { left: 50%; top: 34%; }
-  .f-seated { height: 74vh; bottom: -2vh; }
   .f-cover-top { top: 92px; left: 18px; right: 18px; }
   .f-cover-roles { display: none; }
   .f-cover-bottom { left: 18px; right: 18px; bottom: 22px; flex-direction: column; align-items: flex-start; gap: 16px; }
