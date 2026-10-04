@@ -162,8 +162,10 @@ a.menu-image:hover img { transform: scale(1.05); }
 .sh-rings i { position: absolute; inset: 0; border-radius: 50%; border: 1px solid rgba(255,60,60,.45); animation: sh-ring 6s cubic-bezier(.2,.6,.2,1) infinite; }
 .sh-rings i:nth-child(2) { animation-delay: 2s; } .sh-rings i:nth-child(3) { animation-delay: 4s; }
 @keyframes sh-ring { 0% { transform: scale(1); opacity: .7; } 100% { transform: scale(2.3); opacity: 0; } }
-.sh-figure { position: absolute; left: 50%; bottom: 0; height: 90vh; z-index: 3; will-change: transform; filter: drop-shadow(0 30px 40px rgba(0,0,0,.6)); }
-.sh-figure img { height: 100%; width: auto; display: block; }
+.sh-figure { position: absolute; left: 50%; bottom: 0; height: 90vh; aspect-ratio: 0.4685; z-index: 3; will-change: transform; filter: drop-shadow(0 30px 40px rgba(0,0,0,.6)); }
+.sh-figure img { position: absolute; left: 50%; top: 1%; height: 98%; width: auto; transform: translateX(-50%); display: block; transition: opacity .3s; }
+.sh-figure.gl-ready img { opacity: 0; }
+.sh-figure-gl { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; display: block; }
 .sh-floor { position: absolute; left: 50%; bottom: -6vh; width: 60vh; height: 14vh; margin-left: -30vh; border-radius: 50%; z-index: 2; will-change: transform;
   background: radial-gradient(closest-side, rgba(227,20,27,.45), rgba(227,20,27,0)); filter: blur(10px); }
 .sh-team { position: absolute; inset: 0; z-index: 2; }

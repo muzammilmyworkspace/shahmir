@@ -1,5 +1,6 @@
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { initFigure3D } from './figure3d';
 
 gsap.registerPlugin(ScrollTrigger);
 const $ = <T extends Element = HTMLElement>(s: string, r: ParentNode = document) => r.querySelector(s) as T | null;
@@ -68,7 +69,15 @@ export function initShahmir(root: ParentNode = document) {
 
   // resting state
   const side = () => (mobile() ? 20 : 25);   // vw offset for the left / right poses
-  gsap.set(fig, { xPercent: -50, transformOrigin: '50% 0%', transformPerspective: 1600 });
+  gsap.set(fig, { xPercent: -50, transformOrigin: '50% 0%' });
+  // depth-displaced photo; the plain image stays as the fallback until WebGL is ready
+  const pose = { a: 0 };
+  let fig3d: ReturnType<typeof initFigure3D> | null = null;
+  if (!reduced()) {
+    try { fig3d = initFigure3D(fig, { color: '/shahmir/shahmir.webp', depth: '/shahmir/shahmir-depth.png', aspect: 690 / 2504 }); cleanups.push(() => fig3d?.destroy()); }
+    catch (err) { console.warn('3D figure unavailable', err); }
+  }
+  const applyPose = () => fig3d?.setPose(pose.a);
   gsap.set(panels.slice(1), { autoAlpha: 0 });
   panels.slice(1).forEach((p) => gsap.set(parts(p), { y: 40, autoAlpha: 0, filter: 'blur(8px)' }));
   gsap.set(members, { xPercent: -50, x: 0, autoAlpha: 0, scale: 0.9 });
@@ -83,23 +92,26 @@ export function initShahmir(root: ParentNode = document) {
   const hide = (p: Element, at: number) => tl.to(parts(p), { y: -30, autoAlpha: 0, filter: 'blur(6px)', duration: 0.35, stagger: 0.04, ease: 'power2.in' }, at).set(p, { autoAlpha: 0 }, at + 0.5);
 
   // 0 → 1  zoomed face → full figure on the LEFT, content right
-  tl.fromTo(fig, { scale: 2.55, y: () => innerHeight * 0.2, x: 0, rotateY: 0 }, { scale: 1, y: 0, x: () => -innerWidth * side() / 100, duration: 1 }, 0)
+  tl.fromTo(fig, { scale: 2.55, y: () => innerHeight * 0.2, x: 0 }, { scale: 1, y: 0, x: () => -innerWidth * side() / 100, duration: 1 }, 0)
     .fromTo(circle, { scale: 1.9, x: 0 }, { scale: 1, x: () => -innerWidth * side() / 100, duration: 1 }, 0)
     .fromTo(rings, { scale: 1.6, x: 0 }, { scale: 1, x: () => -innerWidth * side() / 100, duration: 1 }, 0)
     .fromTo(floor, { x: 0, autoAlpha: 0 }, { x: () => -innerWidth * side() / 100, autoAlpha: 1, duration: 1 }, 0)
     .to(outline, { xPercent: -18, duration: 4.6, ease: 'none' }, 0);
   hide(hook, 0.05);
   show(panels[1], 0.75);
+  tl.fromTo(pose, { a: 0 }, { a: 1, duration: 1, ease: 'none', onUpdate: applyPose, immediateRender: false }, 0)
+    .fromTo(pose, { a: 1 }, { a: 2, duration: 1, ease: 'none', onUpdate: applyPose, immediateRender: false }, 1.4)
+    .fromTo(pose, { a: 2 }, { a: 3, duration: 1, ease: 'none', onUpdate: applyPose, immediateRender: false }, 2.8);
 
   // 1.4 → 2.4  he turns around (3D card) and walks to the RIGHT, content left
   hide(panels[1], 1.35);
-  tl.to(fig, { rotateY: 180, x: () => innerWidth * side() / 100, duration: 1 }, 1.4)
+  tl.to(fig, { x: () => innerWidth * side() / 100, duration: 1 }, 1.4)
     .to([circle, rings, floor], { x: () => innerWidth * side() / 100, duration: 1 }, 1.4);
   show(panels[2], 2.15);
 
   // 2.8 → 3.8  zoom out to the centre, facing front again
   hide(panels[2], 2.75);
-  tl.to(fig, { rotateY: 360, x: 0, scale: () => (mobile() ? 0.66 : 0.56), y: () => innerHeight * (mobile() ? 0.17 : 0.24), duration: 1 }, 2.8)
+  tl.to(fig, { x: 0, scale: () => (mobile() ? 0.66 : 0.56), y: () => innerHeight * (mobile() ? 0.17 : 0.24), duration: 1 }, 2.8)
     .to([circle, rings], { x: 0, scale: 0.72, y: () => innerHeight * (mobile() ? 0.1 : 0.15), duration: 1 }, 2.8)
     .to(floor, { x: 0, scale: 0.8, duration: 1 }, 2.8);
   show(panels[3], 3.5);
