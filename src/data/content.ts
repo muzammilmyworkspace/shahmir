@@ -11,8 +11,8 @@ export const SITE = {
 };
 
 export const NAV = {
-  left: [{ label: 'Story', href: '/#story' }, { label: 'Ventures', href: '/#ventures' }],
-  right: [{ label: 'Philosophy', href: '/#philosophy' }, { label: 'Contact', href: '/contact' }],
+  left: [{ label: 'Story', href: '/#story' }, { label: 'Founder', href: '/#founder' }],
+  right: [{ label: 'Principles', href: '/#philosophy' }, { label: 'Contact', href: '/contact' }],
   menuPrimary: [
     { label: 'Our Work', href: '/projects' },
     { label: 'Inside Westside', href: '/about' },

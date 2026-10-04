@@ -11,8 +11,8 @@ let introPlayed = false;
 
 /** Founder (personal brand) home page. Returns a cleanup for Barba page changes. */
 export function initFounder(root: ParentNode = document) {
-  const hero = $('.f-hero', root);
-  if (!hero) return () => {};
+  const journey = $('.f-journey', root);
+  if (!journey) return () => {};
   const kill: (() => void)[] = [];
   const later = (fn: () => void) => kill.push(fn);
 
@@ -20,12 +20,21 @@ export function initFounder(root: ParentNode = document) {
   $$<HTMLAnchorElement>('a[href^="#"]', root).forEach((a) => {
     a.setAttribute('data-barba-prevent', '');
     a.addEventListener('click', (e) => {
-      const t = $(a.getAttribute('href')!, root);
-      if (!t) return;
+      const id = a.getAttribute('href')!.slice(1);
       e.preventDefault();
-      (window as any).__lenis ? (window as any).__lenis.scrollTo(t, { duration: 1.6 }) : t.scrollIntoView({ behavior: 'smooth' });
+      if (journey.classList.contains('f-static')) { $('#' + id, root)?.scrollIntoView({ behavior: 'smooth' }); return; }
+      jump(id);
     });
   });
+  // header links like /#story land on the right chapter while on the home page
+  const onNav = (e: MouseEvent) => {
+    const a = (e.target as HTMLElement).closest<HTMLAnchorElement>('a[href^="/#"]');
+    if (!a || journey.classList.contains('f-static')) return;
+    e.preventDefault(); e.stopPropagation();
+    jump(a.getAttribute('href')!.slice(2));
+  };
+  document.addEventListener('click', onNav, true);
+  later(() => document.removeEventListener('click', onNav, true));
 
   /* ---------- split headings (masked lines) ---------- */
   const splitEls = $$('[data-split]', root);
@@ -62,67 +71,97 @@ export function initFounder(root: ParentNode = document) {
     later(() => { tl.kill(); document.documentElement.style.overflow = ''; });
   } else { loader?.remove(); if (!reduced()) coverIntro(); }
 
-  /* ---------- cover: name splits, founder steps forward ---------- */
-  if (!reduced()) {
-    const tl = gsap.timeline({ defaults: { ease: 'none' } });
-    tl.to('.f-name-l', { xPercent: -38, autoAlpha: 0.25 }, 0)
-      .to('.f-name-r', { xPercent: 52, autoAlpha: 0.25 }, 0)
-      .to('.f-figure', { scale: 1.12, yPercent: -3 }, 0)
-      .to('.f-sun', { scale: 1.35, yPercent: -8 }, 0)
-      .to('.f-arcs', { rotate: 40, scale: 1.2 }, 0)
-      .to('.f-cover-top, .f-cover-bottom, .f-scrollcue', { autoAlpha: 0, y: -40 }, 0);
-    const st = ScrollTrigger.create({ trigger: hero, start: 'top top', end: 'bottom bottom', scrub: 0.8, animation: tl });
+  /* ---------- the journey: one pinned stage, the founder moves through every chapter ---------- */
+  const words = $$('.f-manifesto-text .w', root);
+  const anchors: Record<string, number> = { top: 0, story: 1.9, founder: 4.4, philosophy: 7.7, contact: 12.2 };
+  let jump = (id: string) => {};
+  if (reduced()) {
+    journey.classList.add('f-static');
+    words.forEach((w) => w.classList.add('on'));
+  } else {
+    const mobile = () => innerWidth < 768;
+    const vw = (d: number, m: number) => () => (innerWidth * (mobile() ? m : d)) / 100;
+    const at = { right: vw(16, 10), left: vw(-32, -10), mid: vw(-8, 0) };
+    const follow = '.f-sun, .f-arcs';
+    const tl = gsap.timeline({ defaults: { ease: 'power2.inOut', duration: 1 } });
+    const show = (sel: string, t: number) => {
+      tl.set(sel, { autoAlpha: 1 }, t);
+      tl.from($$(`${sel} > *`, root), { y: 50, autoAlpha: 0, stagger: 0.08, duration: 0.6, ease: 'power3.out' }, t);
+    };
+    const hide = (sel: string, t: number) => {
+      tl.to($$(`${sel} > *`, root), { y: -40, autoAlpha: 0, stagger: 0.04, duration: 0.45, ease: 'power2.in' }, t);
+      tl.set(sel, { autoAlpha: 0 }, t + 0.6);
+    };
+
+    // 0 · cover: name splits, copy clears, founder steps to the right
+    tl.to('.f-cover', { autoAlpha: 0, y: -40, duration: 0.5, ease: 'power1.in' }, 0)
+      .to('.f-name-l', { xPercent: -38, autoAlpha: 0.14, duration: 1.2 }, 0)
+      .to('.f-name-r', { xPercent: 52, autoAlpha: 0.14, duration: 1.2 }, 0)
+      .to('.f-arcs', { rotate: 40, scale: 1.15, duration: 1.2 }, 0)
+      .to(['.f-figure', '.f-seated'], { x: at.right, scale: 0.94, duration: 1 }, 0.2)
+      .to(follow, { x: at.right, duration: 1 }, 0.2)
+      .to('.f-pose-a', { opacity: 0, duration: 0.5 }, 0.45).to('.f-pose-b', { opacity: 1, duration: 0.5 }, 0.45);
+
+    // 1 · manifesto on the left, words light up as you read
+    show('.f-manifesto', 0.85);
+    const read = { p: 0 };
+    tl.to(read, { p: 1, duration: 1.4, ease: 'none', onUpdate: () => { const k = read.p * words.length; words.forEach((w, i) => w.classList.toggle('on', i < k)); } }, 1.3);
+    hide('.f-manifesto', 2.9);
+
+    // 2 · founder steps left, his story on the right
+    tl.to(['.f-figure', '.f-seated'], { x: at.left, duration: 1 }, 3.0)
+      .to(follow, { x: at.left, duration: 1 }, 3.0)
+      .to('.f-pose-b', { opacity: 0, duration: 0.5 }, 3.25).to('.f-pose-a', { opacity: 1, duration: 0.5 }, 3.25);
+    show('.f-founder', 3.6);
+    hide('.f-founder', 5.0);
+
+    // 3 · centre stage, the four rules arrive from both sides
+    tl.to(['.f-figure', '.f-seated'], { x: at.mid, scale: 0.86, duration: 1 }, 5.1)
+      .to(follow, { x: at.mid, duration: 1 }, 5.1)
+      .to('.f-name-l, .f-name-r', { autoAlpha: 0.06, duration: 1 }, 5.1);
+    tl.set('.f-how', { autoAlpha: 1 }, 5.6)
+      .from('.f-how-head > *', { y: 40, autoAlpha: 0, stagger: 0.08, duration: 0.5, ease: 'power3.out' }, 5.6);
+    const rules = $$('.f-rule', root);
+    rules.forEach((r, i) => {
+      const t = 6.0 + i * 0.5;
+      tl.from(r, { x: () => (i % 2 ? 1 : -1) * innerWidth * 0.45, autoAlpha: 0, rotate: (i % 2 ? 4 : -4), duration: 0.6, ease: 'power3.out' }, t);
+      if (i < rules.length - 1) tl.to(r, { autoAlpha: () => (mobile() ? 0 : 1), y: () => (mobile() ? -30 : 0), duration: 0.3 }, t + 0.5);
+    });
+    tl.to('.f-how', { autoAlpha: 0, scale: 0.96, duration: 0.5, ease: 'power2.in' }, 8.2);
+
+    // 4 · the boss chair: he sits, the image dims, the promise lands
+    tl.to('.f-figure', { autoAlpha: 0, scale: 0.8, duration: 0.6 }, 8.4)
+      .fromTo('.f-seated', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.6, immediateRender: false }, 8.6)
+      .to('.f-seated', { opacity: 0.2, duration: 0.6 }, 9.4)
+      .to('.f-sun', { autoAlpha: 0.3, scale: 0.8, duration: 0.6 }, 9.4);
+    show('.f-promise', 9.8);
+    hide('.f-promise', 11.0);
+
+    // 5 · back on the left, side pose, work with me
+    tl.to('.f-seated', { autoAlpha: 0, duration: 0.5 }, 11.0)
+      .set(['.f-figure', '.f-seated'], { x: at.left }, 11.1)
+      .set(follow, { x: at.left }, 11.1)
+      .fromTo('.f-figure', { autoAlpha: 0, scale: 0.86, yPercent: 6 }, { autoAlpha: 1, scale: 0.94, yPercent: 0, duration: 0.8, immediateRender: false }, 11.2)
+      .to('.f-sun', { autoAlpha: 1, scale: 1, duration: 0.8 }, 11.2);
+    show('.f-work', 11.7);
+    tl.to({}, { duration: 0.6 }, 12.3);
+
+    const st = ScrollTrigger.create({ trigger: journey, start: 'top top', end: 'bottom bottom', scrub: 0.9, animation: tl, invalidateOnRefresh: true });
+    jump = (id) => {
+      const t = anchors[id] ?? 0;
+      const y = st.start + (st.end - st.start) * (t / tl.duration());
+      (window as any).__lenis ? (window as any).__lenis.scrollTo(y, { duration: 1.6 }) : scrollTo({ top: y, behavior: 'smooth' });
+    };
     later(() => { st.kill(); tl.kill(); });
 
-    // pointer parallax on the cover layers
+    // pointer parallax (inner layers only, the timeline owns the outer ones)
     if (fine()) {
-      const layers: [string, number][] = [['.f-sun', 18], ['.f-arcs', 10], ['.f-name', -14], ['.f-figure', 26]];
+      const layers: [string, number][] = [['.f-name', -14], ['.f-par', 26]];
       const qs = layers.map(([s, k]) => ({ x: gsap.quickTo(s, 'x', { duration: 1.2, ease: 'power3' }), y: gsap.quickTo(s, 'y', { duration: 1.2, ease: 'power3' }), k }));
       const move = (e: PointerEvent) => { const x = e.clientX / innerWidth - 0.5, y = e.clientY / innerHeight - 0.5; qs.forEach((q) => { q.x(x * q.k); q.y(y * q.k * 0.6); }); };
       addEventListener('pointermove', move, { passive: true });
       later(() => removeEventListener('pointermove', move));
     }
-  }
-
-  /* ---------- manifesto: words light up as you read ---------- */
-  const words = $$('.f-manifesto-text .w', root);
-  if (words.length) {
-    const st = ScrollTrigger.create({
-      trigger: '.f-manifesto', start: 'top top', end: 'bottom bottom', scrub: true,
-      onUpdate: (s) => { const k = s.progress * words.length * 1.15; words.forEach((w, i) => w.classList.toggle('on', i < k)); },
-    });
-    later(() => st.kill());
-  }
-
-  /* ---------- reveals ---------- */
-  if (!reduced()) {
-    splitEls.filter((el) => !el.closest('.f-hero')).forEach((el) => {
-      const tw = gsap.from($$('.f-line', el), { yPercent: 110, duration: 1.2, ease: 'expo.out', stagger: 0.09, scrollTrigger: { trigger: el, start: 'top 85%' } });
-      later(() => tw.kill());
-    });
-    $$('[data-fade]', root).forEach((el) => {
-      const tw = gsap.from(el, { y: 40, autoAlpha: 0, duration: 1.1, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 88%' } });
-      later(() => tw.kill());
-    });
-    $$('[data-reveal-img]', root).forEach((el) => {
-      const tl = gsap.timeline({ scrollTrigger: { trigger: el, start: 'top 80%' } });
-      tl.fromTo(el, { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.4, ease: 'expo.inOut' })
-        .from($('img', el), { scale: 1.35, duration: 1.8, ease: 'expo.out' }, 0.2);
-      const par = gsap.to($('img', el), { yPercent: -8, ease: 'none', scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: true } });
-      later(() => { tl.kill(); par.kill(); });
-    });
-    // venture cards rise in
-    const cards = gsap.from('.f-card', { y: 90, autoAlpha: 0, duration: 1.3, ease: 'expo.out', stagger: 0.15, scrollTrigger: { trigger: '.f-cards', start: 'top 80%' } });
-    later(() => cards.kill());
-    // principles: each card settles back as the next one lands on it
-    const rules = $$('.f-rule', root);
-    rules.slice(0, -1).forEach((r, i) => {
-      const tw = gsap.to(r, { scale: 0.9 + i * 0.02, filter: 'brightness(.55)', ease: 'none', scrollTrigger: { trigger: rules[i + 1], start: 'top 85%', end: 'top 20%', scrub: true } });
-      later(() => tw.kill());
-    });
-    // quote: face rises out of the red
-    const qf = gsap.fromTo('.f-quote-face', { yPercent: 30 }, { yPercent: -6, ease: 'none', scrollTrigger: { trigger: '.f-quote', start: 'top bottom', end: 'bottom top', scrub: true } });
-    later(() => qf.kill());
   }
 
   /* ---------- cursor + magnetic buttons ---------- */

@@ -261,7 +261,7 @@ a.menu-image:hover img { transform: scale(1.05); }
    ===================================================================== */
 :root { --f-black: #080404; --f-ink: #120707; --f-red: #e3141b; --f-red-2: #ff2d2d; --f-bone: #f1ebe3; --f-mute: rgba(241,235,227,.6);
   --f-display: "Anton", "Geist", sans-serif; --f-serif: "Instrument Serif", Georgia, serif; }
-body:has(.f-hero) { background: var(--f-black); }
+body:has(.f-journey) { background: var(--f-black); }
 .f-label { font-family: "Geist Mono", monospace; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--f-red-2); display: flex; align-items: center; gap: 12px; }
 .f-label::before { content: ""; width: 28px; height: 1px; background: currentColor; }
 .f-mask { display: block; overflow: hidden; padding-bottom: .06em; margin-bottom: -.06em; }
@@ -286,13 +286,13 @@ body:has(.f-hero) { background: var(--f-black); }
 .f-cursor.is-link span { transform: scale(3.4); background: rgba(255,45,45,.35); }
 .f-cursor.is-view em { transform: scale(1); } .f-cursor.is-view span { transform: scale(0); }
 
-/* 01 · cover */
-.f-hero { position: relative; height: 200vh; background: var(--f-black); color: var(--f-bone); }
-.f-hero-stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
-.f-hero-stage::after { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 20; opacity: .08; mix-blend-mode: overlay;
+/* journey · one pinned stage, the founder moves through every chapter */
+.f-journey { position: relative; height: 1100vh; background: var(--f-black); color: var(--f-bone); }
+.f-stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+.f-stage::after { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 20; opacity: .08; mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
 .f-hero-bg { position: absolute; inset: 0; background: radial-gradient(90% 80% at 64% 42%, #3b0508 0%, #170305 45%, var(--f-black) 80%); }
-.f-arcs { position: absolute; left: 64%; top: 44%; width: 150vh; height: 150vh; transform: translate(-50%, -50%); z-index: 1; overflow: visible; }
+.f-arcs { position: absolute; left: 64%; top: 44%; width: 150vh; height: 150vh; margin: -75vh 0 0 -75vh; z-index: 1; overflow: visible; }
 .f-arcs circle { stroke: rgba(255,60,60,.22); stroke-width: 1; vector-effect: non-scaling-stroke; transform-origin: center; }
 .f-arcs circle:nth-child(odd) { animation: f-spin 60s linear infinite; } .f-arcs circle:nth-child(even) { animation: f-spin 90s linear infinite reverse; }
 @keyframes f-spin { to { transform: rotate(360deg); } }
@@ -303,17 +303,24 @@ body:has(.f-hero) { background: var(--f-black); }
   font-family: var(--f-display); font-weight: 400; font-size: 27.5vw; line-height: .78; letter-spacing: -.01em; color: var(--f-bone); white-space: nowrap; overflow: hidden; padding: .04em 0; }
 .f-name span { display: inline-block; will-change: transform; }
 .f-name-r { color: var(--f-red); }
-.f-figure { position: absolute; left: 58%; bottom: 0; height: 94vh; z-index: 3; transform-origin: 50% 100%; will-change: transform; filter: drop-shadow(0 40px 60px rgba(0,0,0,.7)); }
-.f-figure img { height: 100%; width: auto; display: block; transform: translateX(-50%); }
-.f-cover-top { position: absolute; left: 36px; right: 36px; top: 112px; z-index: 5; display: flex; justify-content: space-between; align-items: flex-start; }
+.f-figure { position: absolute; left: 58%; bottom: 0; width: 0; height: 94vh; z-index: 3; transform-origin: 0 100%; will-change: transform; filter: drop-shadow(0 40px 60px rgba(0,0,0,.7)); }
+.f-par { position: absolute; left: 0; bottom: 0; height: 100%; }
+.f-pose { position: absolute; bottom: 0; left: 0; height: 100%; width: auto; max-width: none; display: block; transform: translateX(-50%); }
+.f-pose-b { transform: translateX(-50%) scaleX(-1); opacity: 0; }
+.f-seated { position: absolute; left: 58%; bottom: -4vh; width: 0; height: 96vh; z-index: 3; opacity: 0; visibility: hidden; transform-origin: 0 100%; }
+.f-seated img { position: absolute; bottom: 0; left: 0; height: 100%; width: auto; max-width: none; transform: translateX(-50%); filter: drop-shadow(0 30px 60px rgba(0,0,0,.6)); }
+.f-step { position: absolute; inset: 0; z-index: 5; pointer-events: none; }
+.f-step a, .f-step .f-btn { pointer-events: auto; }
+.f-step:not(.f-cover) { visibility: hidden; }
+.f-cover-top { position: absolute; left: 36px; right: 36px; top: 112px; display: flex; justify-content: space-between; align-items: flex-start; }
 .f-issue { font-family: "Geist Mono", monospace; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--f-bone); padding: 8px 14px; border: 1px solid rgba(241,235,227,.25); border-radius: 99px; background: rgba(8,4,4,.4); backdrop-filter: blur(8px); }
 .f-cover-roles { text-align: right; font-family: "Geist Mono", monospace; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; line-height: 1.7; color: var(--f-mute); }
-.f-cover-bottom { position: absolute; left: 36px; right: 36px; bottom: 36px; z-index: 5; display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; }
+.f-cover-bottom { position: absolute; left: 36px; right: 36px; bottom: 36px; display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; }
 .f-cover-line { font-family: "Geist", sans-serif; font-weight: 500; font-size: clamp(34px, 4.2vw, 72px); line-height: .98; letter-spacing: -.035em; text-shadow: 0 6px 30px rgba(0,0,0,.5); }
 .f-cover-side { max-width: 330px; display: flex; flex-direction: column; align-items: flex-start; gap: 18px; }
 .f-cover-side p { font-size: 15px; line-height: 1.5; color: var(--f-mute); }
 .f-cover-side b { color: var(--f-bone); font-weight: 500; }
-.f-scrollcue { position: absolute; left: 50%; bottom: 26px; z-index: 5; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 10px; font-family: "Geist Mono", monospace; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--f-mute); }
+.f-scrollcue { position: absolute; left: 50%; bottom: 26px; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 10px; font-family: "Geist Mono", monospace; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--f-mute); }
 .f-scrollcue i { width: 1px; height: 44px; background: linear-gradient(var(--f-red-2) 50%, rgba(255,255,255,.15) 50%); background-size: 100% 200%; animation: f-drip 1.8s cubic-bezier(.6,0,.2,1) infinite; }
 @keyframes f-drip { from { background-position: 0 100%; } to { background-position: 0 -100%; } }
 
@@ -325,83 +332,48 @@ body:has(.f-hero) { background: var(--f-black); }
 .f-btn:hover span { transform: translate(3px, -3px); }
 .f-btn-lg { height: 64px; padding: 0 34px; font-size: 13px; }
 
-/* marquee */
-.f-marquee { position: relative; z-index: 2; background: var(--f-red); color: #fff; overflow: hidden; padding: 18px 0; transform: rotate(-1.4deg) scale(1.03); margin: -24px 0 0; }
-.f-marquee-track { display: flex; width: max-content; animation: f-marq 28s linear infinite; }
-.f-marquee span { display: inline-flex; align-items: center; gap: 28px; padding-right: 28px; font-family: var(--f-display); font-size: clamp(28px, 3.6vw, 56px); text-transform: uppercase; letter-spacing: .01em; }
-.f-marquee i { font-style: normal; font-size: .5em; opacity: .7; }
-@keyframes f-marq { to { transform: translateX(-50%); } }
-
-/* 02 · manifesto */
-.f-manifesto { position: relative; height: 240vh; background: var(--f-black); color: var(--f-bone); }
-.f-manifesto-stage { position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 0 6vw; gap: 36px; }
-.f-manifesto-text { font-family: "Geist", sans-serif; font-weight: 500; font-size: clamp(32px, 5vw, 86px); line-height: 1.04; letter-spacing: -.035em; max-width: 18ch; }
+/* chapter panels (live inside the pinned stage) */
+.f-step h2 { font-family: "Geist", sans-serif; font-weight: 500; letter-spacing: -.035em; line-height: .98; }
+.f-step h2 em { font-family: var(--f-serif); font-style: italic; font-weight: 400; color: var(--f-red-2); letter-spacing: -.01em; }
+.f-manifesto > *, .f-founder > *, .f-work > * { position: relative; }
+.f-manifesto { display: flex; flex-direction: column; justify-content: center; gap: 34px; padding: 0 52vw 0 6vw; }
+.f-manifesto-text { font-family: "Geist", sans-serif; font-weight: 500; font-size: clamp(32px, 4.3vw, 80px); line-height: 1.04; letter-spacing: -.035em; max-width: 15ch; }
 .f-manifesto-text .w { color: rgba(241,235,227,.12); transition: color .35s; }
 .f-manifesto-text .w.on { color: var(--f-bone); }
 .f-manifesto-text .w.hl.on { color: var(--f-red-2); font-family: var(--f-serif); font-style: italic; font-weight: 400; letter-spacing: -.01em; }
-
-/* 03 · founder */
-.f-about { display: grid; grid-template-columns: 1fr 1.05fr; gap: 6vw; align-items: center; padding: 14vh 6vw; background: var(--f-ink); color: var(--f-bone); }
-.f-about-media { position: relative; aspect-ratio: 3 / 4; overflow: hidden; border-radius: 6px; }
-.f-about-media img { width: 100%; height: 115%; object-fit: cover; display: block; }
-.f-about-tag { position: absolute; left: 20px; bottom: 20px; font-family: var(--f-display); font-size: 28px; line-height: 1; text-transform: uppercase; color: var(--f-bone); }
-.f-about-tag small { font-family: "Geist Mono", monospace; font-size: 11px; letter-spacing: .16em; color: var(--f-bone); opacity: .7; }
-.f-about-copy h2 { margin: 26px 0 30px; font-family: "Geist", sans-serif; font-weight: 500; font-size: clamp(38px, 4.4vw, 76px); line-height: .98; letter-spacing: -.035em; }
-.f-lead { font-size: 18px; line-height: 1.6; color: var(--f-mute); max-width: 34em; margin-bottom: 18px; }
-.f-roles { margin: 34px 0; border-top: 1px solid rgba(241,235,227,.14); }
-.f-roles li { list-style: none; display: flex; justify-content: space-between; gap: 20px; padding: 18px 0; border-bottom: 1px solid rgba(241,235,227,.14); }
+.f-founder, .f-work { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 90px 6vw 0 50vw; }
+.f-founder h2 { margin: 22px 0 24px; font-size: clamp(36px, 3.8vw, 68px); }
+.f-lead { font-size: 17px; line-height: 1.6; color: var(--f-mute); max-width: 32em; }
+.f-roles { margin: 26px 0 18px; border-top: 1px solid rgba(241,235,227,.14); width: min(100%, 520px); }
+.f-roles li { list-style: none; display: flex; justify-content: space-between; gap: 20px; padding: 15px 0; border-bottom: 1px solid rgba(241,235,227,.14); }
 .f-roles span { font-family: "Geist Mono", monospace; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--f-mute); }
-.f-roles b { font-weight: 500; font-size: 18px; }
-.f-sign { font-family: var(--f-serif); font-style: italic; font-size: 64px; color: var(--f-red-2); line-height: 1; transform: rotate(-4deg); transform-origin: 0 50%; }
-
-/* 04 · ventures */
-.f-ventures { padding: 16vh 6vw 14vh; background: var(--f-black); color: var(--f-bone); }
-.f-head h2 { margin-top: 24px; font-family: "Geist", sans-serif; font-weight: 500; font-size: clamp(40px, 5.4vw, 96px); line-height: .96; letter-spacing: -.04em; }
-.f-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 8vh; }
-.f-card { display: block; border-radius: 8px; overflow: hidden; background: var(--f-ink); border: 1px solid rgba(241,235,227,.08); transition: transform .7s cubic-bezier(.2,.7,.1,1), border-color .4s; }
-.f-card:hover { transform: translateY(-6px); border-color: rgba(255,45,45,.4); }
-.f-card-art { position: relative; aspect-ratio: 16 / 11; display: grid; place-items: center; overflow: hidden; }
-.f-card-wss .f-card-art { background: radial-gradient(90% 90% at 70% 40%, #4a0609, #120406 70%); }
-.f-card-src .f-card-art { background: radial-gradient(90% 90% at 30% 60%, #2a0c0c, #0b0505 70%); }
-.f-card-sun { position: absolute; right: 12%; top: 12%; width: 46%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 72% 44%, #ffcf9e, #ff5a2e 18%, #c4120d 44%, #500306 100%); transition: transform 1.2s cubic-bezier(.2,.7,.1,1); }
-.f-card:hover .f-card-sun { transform: scale(1.12) translate(-4%, 4%); }
-.f-card-grid { position: absolute; inset: -20%; background-image: linear-gradient(rgba(255,60,60,.12) 1px, transparent 1px), linear-gradient(90deg, rgba(255,60,60,.12) 1px, transparent 1px); background-size: 48px 48px; transform: perspective(600px) rotateX(55deg) translateY(10%); transition: transform 1.2s cubic-bezier(.2,.7,.1,1); }
-.f-card:hover .f-card-grid { transform: perspective(600px) rotateX(55deg) translateY(4%); }
-.f-card-logo { position: relative; width: 56%; filter: drop-shadow(0 10px 30px rgba(0,0,0,.5)); }
-.f-card-logo-src { width: 62%; }
-.f-card-meta { padding: 28px 30px 32px; }
-.f-card-meta span { font-family: "Geist Mono", monospace; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--f-red-2); }
-.f-card-meta h3 { margin: 12px 0 10px; font-size: clamp(26px, 2.4vw, 38px); font-weight: 500; letter-spacing: -.03em; }
-.f-card-meta p { color: var(--f-mute); line-height: 1.55; max-width: 34em; }
-
-/* 05 · philosophy (stacking cards) */
-.f-philo { position: relative; display: grid; grid-template-columns: .8fr 1.2fr; gap: 5vw; padding: 14vh 6vw 20vh; background: var(--f-black); color: var(--f-bone); }
-.f-head-sticky { position: sticky; top: 18vh; align-self: start; }
-.f-stack { display: flex; flex-direction: column; gap: 6vh; }
-.f-rule { position: sticky; top: 16vh; min-height: 52vh; padding: 46px 48px; border-radius: 10px; display: flex; flex-direction: column; justify-content: space-between; transform-origin: 50% 0;
-  background: var(--f-ink); border: 1px solid rgba(241,235,227,.08); box-shadow: 0 -20px 60px rgba(0,0,0,.45); will-change: transform, filter; }
-.f-rule.r1 { top: calc(16vh + 22px); background: var(--f-red); border-color: transparent; }
-.f-rule.r2 { top: calc(16vh + 44px); background: var(--f-bone); color: var(--f-black); }
-.f-rule.r3 { top: calc(16vh + 66px); background: #1d0a0a; }
-.f-rule-n { font-family: var(--f-display); font-size: 120px; line-height: .8; opacity: .9; }
-.f-rule.r2 .f-rule-n { color: var(--f-red); }
-.f-rule h3 { margin-top: 30px; font-size: clamp(30px, 3.2vw, 54px); font-weight: 500; letter-spacing: -.035em; line-height: 1; }
-.f-rule p { margin-top: 16px; font-size: 17px; line-height: 1.55; max-width: 32em; opacity: .78; }
-
-/* 06 · quote */
-.f-quote { position: relative; min-height: 100vh; overflow: hidden; display: grid; place-items: center; padding: 14vh 6vw; background: var(--f-red); color: #fff; }
-.f-quote-lines { position: absolute; inset: 0; opacity: .25; background: repeating-radial-gradient(circle at 80% 110%, transparent 0 38px, rgba(0,0,0,.35) 39px 40px); }
-.f-quote blockquote { position: relative; z-index: 2; margin-right: 26vw; }
-.f-quote p { max-width: 11.6ch; font-family: "Geist", sans-serif; font-weight: 500; font-size: clamp(44px, 6.6vw, 118px); line-height: .96; letter-spacing: -.045em; }
-.f-quote p em { color: var(--f-black); }
-.f-quote footer { margin-top: 30px; font-family: "Geist Mono", monospace; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; }
-.f-quote-face { position: absolute; right: 4vw; bottom: 0; width: min(36vw, 520px); z-index: 1; border-radius: 6px 6px 0 0; filter: grayscale(1) contrast(1.15) brightness(.9); mix-blend-mode: multiply; }
-
-/* 07 · contact */
-.f-contact { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 16vh 6vw; background: radial-gradient(90% 70% at 50% 110%, #3b0508, var(--f-black) 70%); color: var(--f-bone); }
-.f-contact h2 { margin: 26px 0 40px; font-family: "Geist", sans-serif; font-weight: 500; font-size: clamp(54px, 9vw, 170px); line-height: .9; letter-spacing: -.05em; }
-.f-contact-row { display: flex; align-items: center; gap: 36px; flex-wrap: wrap; }
-.f-mail { font-size: 18px; color: var(--f-bone); border-bottom: 1px solid rgba(241,235,227,.35); padding-bottom: 4px; }
+.f-roles b { font-weight: 500; font-size: 17px; }
+.f-sign { font-family: var(--f-serif); font-style: italic; font-size: 56px; color: var(--f-red-2); line-height: 1; transform: rotate(-4deg); transform-origin: 0 50%; }
+.f-how-head { position: absolute; left: 0; right: 0; top: 104px; display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; }
+.f-how-head h2 { font-size: clamp(30px, 3vw, 54px); }
+.f-rule { position: absolute; width: min(27vw, 420px); padding: 26px 28px 28px; border-radius: 10px; background: rgba(18,7,7,.82); border: 1px solid rgba(241,235,227,.1);
+  backdrop-filter: blur(10px); box-shadow: 0 30px 60px -20px rgba(0,0,0,.7); }
+.f-rule-0 { left: 5vw; top: 28vh; } .f-rule-2 { left: 5vw; top: 61vh; }
+.f-rule-1 { right: 5vw; top: 28vh; background: var(--f-red); border-color: transparent; } .f-rule-3 { right: 5vw; top: 61vh; background: var(--f-bone); color: var(--f-black); }
+.f-rule-n { font-family: var(--f-display); font-size: 54px; line-height: .8; }
+.f-rule-0 .f-rule-n, .f-rule-2 .f-rule-n, .f-rule-3 .f-rule-n { color: var(--f-red-2); }
+.f-rule h3 { margin-top: 16px; font-size: clamp(22px, 1.8vw, 32px); font-weight: 500; letter-spacing: -.03em; line-height: 1.05; }
+.f-rule p { margin-top: 10px; font-size: 15px; line-height: 1.5; opacity: .78; }
+.f-promise { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 30px; text-align: center; padding: 0 6vw; }
+.f-promise blockquote p { font-family: "Geist", sans-serif; font-weight: 500; font-size: clamp(44px, 7vw, 128px); line-height: .96; letter-spacing: -.045em; text-shadow: 0 10px 50px rgba(0,0,0,.6); }
+.f-promise blockquote p em { font-family: var(--f-serif); font-style: italic; font-weight: 400; color: var(--f-red-2); letter-spacing: -.01em; }
+.f-promise footer { margin-top: 28px; font-family: "Geist Mono", monospace; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--f-mute); }
+.f-promise .f-label { justify-content: center; }
+.f-work h2 { margin: 22px 0 26px; font-size: clamp(48px, 6.4vw, 120px); line-height: .92; letter-spacing: -.05em; }
+.f-work .f-lead { margin-bottom: 34px; }
+.f-work-row { display: flex; align-items: center; gap: 30px; flex-wrap: wrap; }
+.f-mail { font-size: 17px; color: var(--f-bone); border-bottom: 1px solid rgba(241,235,227,.35); padding-bottom: 4px; }
+.f-journey.f-static { height: auto; }
+.f-static .f-stage { position: relative; height: auto; overflow: visible; }
+.f-static .f-step { position: relative; inset: auto; visibility: visible; min-height: 100vh; padding-top: 120px; padding-bottom: 60px; }
+.f-static .f-rule { position: relative; inset: auto; width: auto; margin-top: 16px; }
+.f-static .f-how-head { position: relative; top: 0; }
+.f-static .f-figure, .f-static .f-seated, .f-static .f-name, .f-static .f-sun, .f-static .f-arcs { display: none; }
 
 /* footer */
 .f-footer { background: var(--f-black); color: var(--f-bone); border-top: 1px solid rgba(241,235,227,.08); overflow: hidden; }
@@ -417,26 +389,28 @@ body:has(.f-hero) { background: var(--f-black); }
 .header-name { font-family: var(--f-display); font-size: 22px; letter-spacing: .04em; color: #fff; line-height: 1; white-space: nowrap; }
 .header-name b { color: var(--f-red-2); font-weight: 400; }
 
-@media (max-width: 900px) {
-  .f-about, .f-philo { grid-template-columns: 1fr; }
-  .f-head-sticky { position: static; }
-  .f-cards { grid-template-columns: 1fr; }
-  .f-quote blockquote { margin-right: 0; }
-  .f-quote-face { width: 60vw; opacity: .5; }
-}
 @media (max-width: 767px) {
   .f-name { font-size: 31vw; top: 34%; }
   .f-figure { left: 50%; height: 78vh; }
   .f-sun { left: 50%; top: 34%; width: 46vh; height: 46vh; margin: -23vh 0 0 -23vh; }
   .f-arcs { left: 50%; top: 34%; }
+  .f-seated { height: 74vh; bottom: -2vh; }
   .f-cover-top { top: 92px; left: 18px; right: 18px; }
   .f-cover-roles { display: none; }
   .f-cover-bottom { left: 18px; right: 18px; bottom: 22px; flex-direction: column; align-items: flex-start; gap: 16px; }
   .f-cover-side p { display: none; }
   .f-scrollcue { display: none; }
-  .f-manifesto-stage { padding: 0 22px; }
-  .f-about, .f-ventures, .f-philo, .f-contact { padding-left: 22px; padding-right: 22px; }
-  .f-rule { padding: 30px 26px; min-height: 46vh; }
-  .f-rule-n { font-size: 80px; }
+  .f-manifesto, .f-founder, .f-work { justify-content: flex-end; padding: 0 22px 9vh; }
+  .f-manifesto::before, .f-founder::before, .f-work::before { content: ""; position: absolute; inset: 30% 0 0; background: linear-gradient(transparent, rgba(8,4,4,.92) 45%); }
+  .f-manifesto-text { font-size: 34px; }
+  .f-founder h2 { font-size: 32px; margin: 14px 0 14px; }
+  .f-founder .f-lead { font-size: 15px; }
+  .f-roles { margin: 16px 0 6px; } .f-roles li { padding: 11px 0; } .f-roles b { font-size: 15px; }
+  .f-sign { display: none; }
+  .f-how-head { top: 92px; }
+  .f-rule { left: 18px !important; right: 18px !important; top: auto !important; bottom: 6vh; width: auto; padding: 22px; }
+  .f-promise blockquote p { font-size: 42px; }
+  .f-work h2 { font-size: 52px; }
+  .f-work .f-lead { font-size: 15px; margin-bottom: 22px; }
   .header-name { font-size: 18px; }
 }
