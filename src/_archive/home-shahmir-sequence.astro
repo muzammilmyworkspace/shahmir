@@ -1,0 +1,84 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { SITE } from '../data/content';
+const team = [
+  { img: '/shahmir/team-a.webp', role: 'Strategy' },
+  { img: '/shahmir/team-b.webp', role: 'Creative' },
+  { img: '/shahmir/team-a.webp', role: 'Performance' },
+  { img: '/shahmir/team-b.webp', role: 'Content' },
+];
+---
+<Layout namespace="home" title="Shahmir Hashmat | The West Side Studios" description="The West Side Studios, founded by Shahmir Hashmat. Brands, campaigns and websites people can’t scroll past.">
+  <section id="sh" class="sh" aria-label="Shahmir Hashmat, founder of The West Side Studios">
+    <div class="sh-stage">
+      <canvas class="sh-waves" aria-hidden="true"></canvas>
+      <div class="sh-glow" aria-hidden="true"></div>
+      <div class="sh-outline" aria-hidden="true"><span>SHAHMIR</span></div>
+
+      <div class="sh-rig" aria-hidden="true">
+        <div class="sh-rings"><i></i><i></i><i></i></div>
+        <div class="sh-circle"></div>
+        <div class="sh-team">
+          {team.map((t, i) => <figure class={`sh-member m${i}`}><img src={t.img} alt="" /><figcaption>{t.role}</figcaption></figure>)}
+        </div>
+        <div class="sh-figure"><img src="/shahmir/shahmir.webp" alt="" /></div>
+        <div class="sh-floor"></div>
+      </div>
+
+      <!-- 00 hook: zoomed portrait -->
+      <div class="sh-panel sh-hook" data-panel="0">
+        <p class="sh-eyebrow"><span class="sh-dot"></span>Shahmir Hashmat · Founder, The West Side Studios</p>
+        <h1 class="sh-hook-title"><span>We build brands</span><em>people can’t scroll past.</em></h1>
+        <div class="sh-scroll"><i></i><span>Scroll to meet the studio</span></div>
+      </div>
+
+      <!-- 01 left pose, content on the right -->
+      <div class="sh-panel sh-right" data-panel="1">
+        <p class="sh-num">01 <span>The Founder</span></p>
+        <h2>Marketing that <em>moves people.</em></h2>
+        <p class="sh-copy">Shahmir started The West Side Studios to give ambitious brands one partner for strategy, story and growth. Every campaign begins with one question: why should anyone care?</p>
+        <ul class="sh-tags"><li>Brand strategy</li><li>Positioning</li><li>Creative direction</li></ul>
+      </div>
+
+      <!-- 02 right pose, content on the left -->
+      <div class="sh-panel sh-left" data-panel="2">
+        <p class="sh-num">02 <span>The Agency</span></p>
+        <h2>Strategy, story and scale <em>under one roof.</em></h2>
+        <ol class="sh-list">
+          <li><b>Brand identity</b><span>Names, marks and visual systems</span></li>
+          <li><b>Performance marketing</b><span>Paid social, search and funnels</span></li>
+          <li><b>Content production</b><span>Shoots, reels and campaigns</span></li>
+          <li><b>Websites</b><span>Sites that sell while you sleep</span></li>
+        </ol>
+      </div>
+
+      <!-- 03 zoom out: the vision -->
+      <div class="sh-panel sh-center" data-panel="3">
+        <p class="sh-num">03 <span>The Vision</span></p>
+        <h2 class="sh-statement">Every brand has a story.<br /><em>We make the world listen.</em></h2>
+      </div>
+
+      <!-- 04 the team -->
+      <div class="sh-panel sh-teamcopy" data-panel="4">
+        <p class="sh-num">04 <span>The Team</span></p>
+        <h2>The people <em>behind the brands.</em></h2>
+      </div>
+
+      <nav class="sh-progress" aria-hidden="true">
+        {['Hook', 'Founder', 'Agency', 'Vision', 'Team'].map((l, i) => <span data-step={i}><i></i>{l}</span>)}
+      </nav>
+    </div>
+  </section>
+
+  <section class="sh-end">
+    <canvas class="sh-waves sh-waves-end" aria-hidden="true"></canvas>
+    <div class="sh-end-inner">
+      <p class="sh-eyebrow"><span class="sh-dot"></span>The West Side Studios</p>
+      <h2>Ready to be <em>impossible to ignore?</em></h2>
+      <div class="sh-end-row">
+        <a href="/contact" class="sh-btn">Book a strategy call <span>→</span></a>
+        <a href={`mailto:${SITE.email}`} class="sh-link">{SITE.email}</a>
+      </div>
+    </div>
+  </section>
+</Layout>

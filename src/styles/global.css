@@ -255,3 +255,188 @@ a.menu-image:hover img { transform: scale(1.05); }
   .sh-member figcaption { display: none; }
   .header-cta { display: none; }
 }
+
+/* =====================================================================
+   FOUNDER · personal brand (black / red / bone)
+   ===================================================================== */
+:root { --f-black: #080404; --f-ink: #120707; --f-red: #e3141b; --f-red-2: #ff2d2d; --f-bone: #f1ebe3; --f-mute: rgba(241,235,227,.6);
+  --f-display: "Anton", "Geist", sans-serif; --f-serif: "Instrument Serif", Georgia, serif; }
+body:has(.f-hero) { background: var(--f-black); }
+.f-label { font-family: "Geist Mono", monospace; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--f-red-2); display: flex; align-items: center; gap: 12px; }
+.f-label::before { content: ""; width: 28px; height: 1px; background: currentColor; }
+.f-mask { display: block; overflow: hidden; padding-bottom: .06em; margin-bottom: -.06em; }
+.f-line { display: block; }
+[data-split] em, .f-head em, .f-contact em, .f-cover-line em { font-family: var(--f-serif); font-style: italic; font-weight: 400; color: var(--f-red-2); letter-spacing: -.01em; }
+
+/* loader */
+.f-loader { position: fixed; inset: 0; z-index: 200; background: var(--f-black); color: var(--f-bone); display: grid; place-items: center; }
+.f-loader-name { display: flex; overflow: hidden; font-family: var(--f-display); font-size: clamp(64px, 14vw, 220px); line-height: .9; letter-spacing: .01em; }
+.f-loader-name span { display: inline-block; }
+.f-loader-name span:nth-child(n+5) { color: var(--f-red); }
+.f-loader-meta { position: absolute; left: 32px; right: 32px; bottom: 30px; display: flex; justify-content: space-between; align-items: flex-end; font-family: "Geist Mono", monospace; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--f-mute); }
+.f-loader-meta b { font-family: var(--f-display); font-weight: 400; font-size: 56px; letter-spacing: 0; color: var(--f-bone); line-height: .8; }
+.f-loader-bar { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: var(--f-red); transform: scaleX(0); transform-origin: 0 50%; }
+
+/* cursor */
+.f-cursor { position: fixed; left: 0; top: 0; z-index: 150; pointer-events: none; display: none; }
+.f-has-cursor .f-cursor { display: block; }
+.f-cursor span { position: absolute; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%; background: var(--f-red-2); transition: transform .35s cubic-bezier(.2,.7,.1,1); }
+.f-cursor em { position: absolute; width: 96px; height: 96px; margin: -48px 0 0 -48px; border-radius: 50%; display: grid; place-items: center; background: var(--f-red); color: #fff; font-style: normal;
+  font-family: "Geist Mono", monospace; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; transform: scale(0); transition: transform .45s cubic-bezier(.2,.7,.1,1); }
+.f-cursor.is-link span { transform: scale(3.4); background: rgba(255,45,45,.35); }
+.f-cursor.is-view em { transform: scale(1); } .f-cursor.is-view span { transform: scale(0); }
+
+/* 01 · cover */
+.f-hero { position: relative; height: 200vh; background: var(--f-black); color: var(--f-bone); }
+.f-hero-stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+.f-hero-stage::after { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 20; opacity: .08; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+.f-hero-bg { position: absolute; inset: 0; background: radial-gradient(90% 80% at 64% 42%, #3b0508 0%, #170305 45%, var(--f-black) 80%); }
+.f-arcs { position: absolute; left: 64%; top: 44%; width: 150vh; height: 150vh; transform: translate(-50%, -50%); z-index: 1; overflow: visible; }
+.f-arcs circle { stroke: rgba(255,60,60,.22); stroke-width: 1; vector-effect: non-scaling-stroke; transform-origin: center; }
+.f-arcs circle:nth-child(odd) { animation: f-spin 60s linear infinite; } .f-arcs circle:nth-child(even) { animation: f-spin 90s linear infinite reverse; }
+@keyframes f-spin { to { transform: rotate(360deg); } }
+.f-sun { position: absolute; left: 64%; top: 44%; width: 66vh; height: 66vh; margin: -33vh 0 0 -33vh; border-radius: 50%; z-index: 1;
+  background: radial-gradient(circle at 74% 44%, #ffd6aa 0%, #ff6a3a 15%, #d3130f 36%, #7a0508 64%, #3a0205 100%);
+  box-shadow: 0 0 180px 40px rgba(227,20,27,.25), inset -20px 0 50px rgba(255,190,140,.35); }
+.f-name { position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-46%); z-index: 2; display: flex; justify-content: center; gap: .02em; margin: 0;
+  font-family: var(--f-display); font-weight: 400; font-size: 27.5vw; line-height: .78; letter-spacing: -.01em; color: var(--f-bone); white-space: nowrap; overflow: hidden; padding: .04em 0; }
+.f-name span { display: inline-block; will-change: transform; }
+.f-name-r { color: var(--f-red); }
+.f-figure { position: absolute; left: 58%; bottom: 0; height: 94vh; z-index: 3; transform-origin: 50% 100%; will-change: transform; filter: drop-shadow(0 40px 60px rgba(0,0,0,.7)); }
+.f-figure img { height: 100%; width: auto; display: block; transform: translateX(-50%); }
+.f-cover-top { position: absolute; left: 36px; right: 36px; top: 112px; z-index: 5; display: flex; justify-content: space-between; align-items: flex-start; }
+.f-issue { font-family: "Geist Mono", monospace; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--f-bone); padding: 8px 14px; border: 1px solid rgba(241,235,227,.25); border-radius: 99px; background: rgba(8,4,4,.4); backdrop-filter: blur(8px); }
+.f-cover-roles { text-align: right; font-family: "Geist Mono", monospace; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; line-height: 1.7; color: var(--f-mute); }
+.f-cover-bottom { position: absolute; left: 36px; right: 36px; bottom: 36px; z-index: 5; display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; }
+.f-cover-line { font-family: "Geist", sans-serif; font-weight: 500; font-size: clamp(34px, 4.2vw, 72px); line-height: .98; letter-spacing: -.035em; text-shadow: 0 6px 30px rgba(0,0,0,.5); }
+.f-cover-side { max-width: 330px; display: flex; flex-direction: column; align-items: flex-start; gap: 18px; }
+.f-cover-side p { font-size: 15px; line-height: 1.5; color: var(--f-mute); }
+.f-cover-side b { color: var(--f-bone); font-weight: 500; }
+.f-scrollcue { position: absolute; left: 50%; bottom: 26px; z-index: 5; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 10px; font-family: "Geist Mono", monospace; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--f-mute); }
+.f-scrollcue i { width: 1px; height: 44px; background: linear-gradient(var(--f-red-2) 50%, rgba(255,255,255,.15) 50%); background-size: 100% 200%; animation: f-drip 1.8s cubic-bezier(.6,0,.2,1) infinite; }
+@keyframes f-drip { from { background-position: 0 100%; } to { background-position: 0 -100%; } }
+
+/* buttons */
+.f-btn { display: inline-flex; align-items: center; gap: 12px; height: 52px; padding: 0 26px; border-radius: 99px; background: var(--f-red); color: #fff;
+  font-family: "Geist Mono", monospace; font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; will-change: transform;
+  box-shadow: 0 16px 40px -12px rgba(227,20,27,.8), inset 0 1px 0 rgba(255,255,255,.25); }
+.f-btn span { transition: transform .4s cubic-bezier(.2,.7,.1,1); }
+.f-btn:hover span { transform: translate(3px, -3px); }
+.f-btn-lg { height: 64px; padding: 0 34px; font-size: 13px; }
+
+/* marquee */
+.f-marquee { position: relative; z-index: 2; background: var(--f-red); color: #fff; overflow: hidden; padding: 18px 0; transform: rotate(-1.4deg) scale(1.03); margin: -24px 0 0; }
+.f-marquee-track { display: flex; width: max-content; animation: f-marq 28s linear infinite; }
+.f-marquee span { display: inline-flex; align-items: center; gap: 28px; padding-right: 28px; font-family: var(--f-display); font-size: clamp(28px, 3.6vw, 56px); text-transform: uppercase; letter-spacing: .01em; }
+.f-marquee i { font-style: normal; font-size: .5em; opacity: .7; }
+@keyframes f-marq { to { transform: translateX(-50%); } }
+
+/* 02 · manifesto */
+.f-manifesto { position: relative; height: 240vh; background: var(--f-black); color: var(--f-bone); }
+.f-manifesto-stage { position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 0 6vw; gap: 36px; }
+.f-manifesto-text { font-family: "Geist", sans-serif; font-weight: 500; font-size: clamp(32px, 5vw, 86px); line-height: 1.04; letter-spacing: -.035em; max-width: 18ch; }
+.f-manifesto-text .w { color: rgba(241,235,227,.12); transition: color .35s; }
+.f-manifesto-text .w.on { color: var(--f-bone); }
+.f-manifesto-text .w.hl.on { color: var(--f-red-2); font-family: var(--f-serif); font-style: italic; font-weight: 400; letter-spacing: -.01em; }
+
+/* 03 · founder */
+.f-about { display: grid; grid-template-columns: 1fr 1.05fr; gap: 6vw; align-items: center; padding: 14vh 6vw; background: var(--f-ink); color: var(--f-bone); }
+.f-about-media { position: relative; aspect-ratio: 3 / 4; overflow: hidden; border-radius: 6px; }
+.f-about-media img { width: 100%; height: 115%; object-fit: cover; display: block; }
+.f-about-tag { position: absolute; left: 20px; bottom: 20px; font-family: var(--f-display); font-size: 28px; line-height: 1; text-transform: uppercase; color: var(--f-bone); }
+.f-about-tag small { font-family: "Geist Mono", monospace; font-size: 11px; letter-spacing: .16em; color: var(--f-bone); opacity: .7; }
+.f-about-copy h2 { margin: 26px 0 30px; font-family: "Geist", sans-serif; font-weight: 500; font-size: clamp(38px, 4.4vw, 76px); line-height: .98; letter-spacing: -.035em; }
+.f-lead { font-size: 18px; line-height: 1.6; color: var(--f-mute); max-width: 34em; margin-bottom: 18px; }
+.f-roles { margin: 34px 0; border-top: 1px solid rgba(241,235,227,.14); }
+.f-roles li { list-style: none; display: flex; justify-content: space-between; gap: 20px; padding: 18px 0; border-bottom: 1px solid rgba(241,235,227,.14); }
+.f-roles span { font-family: "Geist Mono", monospace; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--f-mute); }
+.f-roles b { font-weight: 500; font-size: 18px; }
+.f-sign { font-family: var(--f-serif); font-style: italic; font-size: 64px; color: var(--f-red-2); line-height: 1; transform: rotate(-4deg); transform-origin: 0 50%; }
+
+/* 04 · ventures */
+.f-ventures { padding: 16vh 6vw 14vh; background: var(--f-black); color: var(--f-bone); }
+.f-head h2 { margin-top: 24px; font-family: "Geist", sans-serif; font-weight: 500; font-size: clamp(40px, 5.4vw, 96px); line-height: .96; letter-spacing: -.04em; }
+.f-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 8vh; }
+.f-card { display: block; border-radius: 8px; overflow: hidden; background: var(--f-ink); border: 1px solid rgba(241,235,227,.08); transition: transform .7s cubic-bezier(.2,.7,.1,1), border-color .4s; }
+.f-card:hover { transform: translateY(-6px); border-color: rgba(255,45,45,.4); }
+.f-card-art { position: relative; aspect-ratio: 16 / 11; display: grid; place-items: center; overflow: hidden; }
+.f-card-wss .f-card-art { background: radial-gradient(90% 90% at 70% 40%, #4a0609, #120406 70%); }
+.f-card-src .f-card-art { background: radial-gradient(90% 90% at 30% 60%, #2a0c0c, #0b0505 70%); }
+.f-card-sun { position: absolute; right: 12%; top: 12%; width: 46%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 72% 44%, #ffcf9e, #ff5a2e 18%, #c4120d 44%, #500306 100%); transition: transform 1.2s cubic-bezier(.2,.7,.1,1); }
+.f-card:hover .f-card-sun { transform: scale(1.12) translate(-4%, 4%); }
+.f-card-grid { position: absolute; inset: -20%; background-image: linear-gradient(rgba(255,60,60,.12) 1px, transparent 1px), linear-gradient(90deg, rgba(255,60,60,.12) 1px, transparent 1px); background-size: 48px 48px; transform: perspective(600px) rotateX(55deg) translateY(10%); transition: transform 1.2s cubic-bezier(.2,.7,.1,1); }
+.f-card:hover .f-card-grid { transform: perspective(600px) rotateX(55deg) translateY(4%); }
+.f-card-logo { position: relative; width: 56%; filter: drop-shadow(0 10px 30px rgba(0,0,0,.5)); }
+.f-card-logo-src { width: 62%; }
+.f-card-meta { padding: 28px 30px 32px; }
+.f-card-meta span { font-family: "Geist Mono", monospace; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--f-red-2); }
+.f-card-meta h3 { margin: 12px 0 10px; font-size: clamp(26px, 2.4vw, 38px); font-weight: 500; letter-spacing: -.03em; }
+.f-card-meta p { color: var(--f-mute); line-height: 1.55; max-width: 34em; }
+
+/* 05 · philosophy (stacking cards) */
+.f-philo { position: relative; display: grid; grid-template-columns: .8fr 1.2fr; gap: 5vw; padding: 14vh 6vw 20vh; background: var(--f-black); color: var(--f-bone); }
+.f-head-sticky { position: sticky; top: 18vh; align-self: start; }
+.f-stack { display: flex; flex-direction: column; gap: 6vh; }
+.f-rule { position: sticky; top: 16vh; min-height: 52vh; padding: 46px 48px; border-radius: 10px; display: flex; flex-direction: column; justify-content: space-between; transform-origin: 50% 0;
+  background: var(--f-ink); border: 1px solid rgba(241,235,227,.08); box-shadow: 0 -20px 60px rgba(0,0,0,.45); will-change: transform, filter; }
+.f-rule.r1 { top: calc(16vh + 22px); background: var(--f-red); border-color: transparent; }
+.f-rule.r2 { top: calc(16vh + 44px); background: var(--f-bone); color: var(--f-black); }
+.f-rule.r3 { top: calc(16vh + 66px); background: #1d0a0a; }
+.f-rule-n { font-family: var(--f-display); font-size: 120px; line-height: .8; opacity: .9; }
+.f-rule.r2 .f-rule-n { color: var(--f-red); }
+.f-rule h3 { margin-top: 30px; font-size: clamp(30px, 3.2vw, 54px); font-weight: 500; letter-spacing: -.035em; line-height: 1; }
+.f-rule p { margin-top: 16px; font-size: 17px; line-height: 1.55; max-width: 32em; opacity: .78; }
+
+/* 06 · quote */
+.f-quote { position: relative; min-height: 100vh; overflow: hidden; display: grid; place-items: center; padding: 14vh 6vw; background: var(--f-red); color: #fff; }
+.f-quote-lines { position: absolute; inset: 0; opacity: .25; background: repeating-radial-gradient(circle at 80% 110%, transparent 0 38px, rgba(0,0,0,.35) 39px 40px); }
+.f-quote blockquote { position: relative; z-index: 2; margin-right: 26vw; }
+.f-quote p { max-width: 11.6ch; font-family: "Geist", sans-serif; font-weight: 500; font-size: clamp(44px, 6.6vw, 118px); line-height: .96; letter-spacing: -.045em; }
+.f-quote p em { color: var(--f-black); }
+.f-quote footer { margin-top: 30px; font-family: "Geist Mono", monospace; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; }
+.f-quote-face { position: absolute; right: 4vw; bottom: 0; width: min(36vw, 520px); z-index: 1; border-radius: 6px 6px 0 0; filter: grayscale(1) contrast(1.15) brightness(.9); mix-blend-mode: multiply; }
+
+/* 07 · contact */
+.f-contact { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 16vh 6vw; background: radial-gradient(90% 70% at 50% 110%, #3b0508, var(--f-black) 70%); color: var(--f-bone); }
+.f-contact h2 { margin: 26px 0 40px; font-family: "Geist", sans-serif; font-weight: 500; font-size: clamp(54px, 9vw, 170px); line-height: .9; letter-spacing: -.05em; }
+.f-contact-row { display: flex; align-items: center; gap: 36px; flex-wrap: wrap; }
+.f-mail { font-size: 18px; color: var(--f-bone); border-bottom: 1px solid rgba(241,235,227,.35); padding-bottom: 4px; }
+
+/* footer */
+.f-footer { background: var(--f-black); color: var(--f-bone); border-top: 1px solid rgba(241,235,227,.08); overflow: hidden; }
+.f-footer-marquee { overflow: hidden; padding: 4vh 0 2vh; }
+.f-footer-track { display: flex; width: max-content; animation: f-marq 40s linear infinite; }
+.f-footer-track span { font-family: var(--f-display); font-size: 16vw; line-height: .9; white-space: nowrap; padding-right: 3vw; color: transparent; -webkit-text-stroke: 1px rgba(241,235,227,.3); }
+.f-footer-track i { font-style: normal; color: var(--f-red); -webkit-text-stroke: 0; font-size: .4em; vertical-align: middle; }
+.f-footer-row { display: flex; justify-content: space-between; align-items: center; gap: 24px; padding: 24px 6vw 30px; font-size: 13px; color: var(--f-mute); flex-wrap: wrap; }
+.f-footer-row nav { display: flex; gap: 26px; }
+.f-footer-row a:hover { color: var(--f-bone); }
+
+/* header text logo */
+.header-name { font-family: var(--f-display); font-size: 22px; letter-spacing: .04em; color: #fff; line-height: 1; white-space: nowrap; }
+.header-name b { color: var(--f-red-2); font-weight: 400; }
+
+@media (max-width: 900px) {
+  .f-about, .f-philo { grid-template-columns: 1fr; }
+  .f-head-sticky { position: static; }
+  .f-cards { grid-template-columns: 1fr; }
+  .f-quote blockquote { margin-right: 0; }
+  .f-quote-face { width: 60vw; opacity: .5; }
+}
+@media (max-width: 767px) {
+  .f-name { font-size: 31vw; top: 34%; }
+  .f-figure { left: 50%; height: 78vh; }
+  .f-sun { left: 50%; top: 34%; width: 46vh; height: 46vh; margin: -23vh 0 0 -23vh; }
+  .f-arcs { left: 50%; top: 34%; }
+  .f-cover-top { top: 92px; left: 18px; right: 18px; }
+  .f-cover-roles { display: none; }
+  .f-cover-bottom { left: 18px; right: 18px; bottom: 22px; flex-direction: column; align-items: flex-start; gap: 16px; }
+  .f-cover-side p { display: none; }
+  .f-scrollcue { display: none; }
+  .f-manifesto-stage { padding: 0 22px; }
+  .f-about, .f-ventures, .f-philo, .f-contact { padding-left: 22px; padding-right: 22px; }
+  .f-rule { padding: 30px 26px; min-height: 46vh; }
+  .f-rule-n { font-size: 80px; }
+  .header-name { font-size: 18px; }
+}

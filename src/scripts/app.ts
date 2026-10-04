@@ -6,6 +6,7 @@ import SplitType from 'split-type';
 import W from '../data/wordmark-letters.json';
 import { SITE } from '../data/content';
 import { initShahmir } from './shahmir';
+import { initFounder } from './founder';
 
 gsap.registerPlugin(ScrollTrigger);
 declare global { interface Window { __lenis?: Lenis; __lenisLocked?: boolean; __headerTheme?: () => void } }
@@ -410,6 +411,7 @@ async function initPage(root: ParentNode = document) {
   initContact(root);
   initInViewVideos(root);
   onCleanup(initShahmir(root));
+  onCleanup(initFounder(root));
   await Promise.all([entry, statement]);
   initCases(root);
   ScrollTrigger.refresh();

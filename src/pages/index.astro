@@ -1,84 +1,144 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { SITE } from '../data/content';
-const team = [
-  { img: '/shahmir/team-a.webp', role: 'Strategy' },
-  { img: '/shahmir/team-b.webp', role: 'Creative' },
-  { img: '/shahmir/team-a.webp', role: 'Performance' },
-  { img: '/shahmir/team-b.webp', role: 'Content' },
+const name = 'Shahmir Hashmat';
+const principles = [
+  { n: '01', t: 'Clarity beats noise.', d: 'If a customer can’t repeat it, it doesn’t exist. Every brand I build starts with one sentence that is impossible to misunderstand.' },
+  { n: '02', t: 'Story sells. Specs don’t.', d: 'People buy the why before the what. We find the story inside the business and tell it everywhere, consistently.' },
+  { n: '03', t: 'Speed, with standards.', d: 'Move fast, but never ship anything you wouldn’t put your own name on. That’s the deal with every client.' },
+  { n: '04', t: 'Build for the long game.', d: 'Trends fade. Trust compounds. The goal is never a viral week — it’s a brand people still choose in ten years.' },
 ];
+const manifesto = 'Most brands are built to be seen. I build brands to be [remembered]. Strategy first, [story] always, and the discipline to see it through until the market [listens].';
+const words = manifesto.split(' ').map((w) => ({ hl: w.startsWith('['), t: w.replace(/[\[\]]/g, '') }));
+const marquee = ['Founder', 'Brand builder', 'Strategist', 'Storyteller', 'Operator'];
 ---
-<Layout namespace="home" title="Shahmir Hashmat | The West Side Studios" description="The West Side Studios, founded by Shahmir Hashmat. Brands, campaigns and websites people can’t scroll past.">
-  <section id="sh" class="sh" aria-label="Shahmir Hashmat, founder of The West Side Studios">
-    <div class="sh-stage">
-      <canvas class="sh-waves" aria-hidden="true"></canvas>
-      <div class="sh-glow" aria-hidden="true"></div>
-      <div class="sh-outline" aria-hidden="true"><span>SHAHMIR</span></div>
+<Layout namespace="home" title={`${name} | Founder, The West Side Studios`} description={`${name} — founder of The West Side Studios and The Sourcers. Building brands people remember.`}>
+  <!-- loader -->
+  <div class="f-loader" aria-hidden="true">
+    <div class="f-loader-name">{'SHAHMIR'.split('').map((c) => <span>{c}</span>)}</div>
+    <div class="f-loader-meta"><span>Founder · The West Side Studios</span><b data-count>00</b></div>
+    <i class="f-loader-bar"></i>
+  </div>
+  <div class="f-cursor" aria-hidden="true"><span></span><em>View</em></div>
 
-      <div class="sh-rig" aria-hidden="true">
-        <div class="sh-rings"><i></i><i></i><i></i></div>
-        <div class="sh-circle"></div>
-        <div class="sh-team">
-          {team.map((t, i) => <figure class={`sh-member m${i}`}><img src={t.img} alt="" /><figcaption>{t.role}</figcaption></figure>)}
+  <!-- 01 · THE COVER -->
+  <section class="f-hero" id="top">
+    <div class="f-hero-stage">
+      <div class="f-hero-bg" aria-hidden="true"></div>
+      <svg class="f-arcs" viewBox="-500 -500 1000 1000" aria-hidden="true">
+        {Array.from({ length: 9 }, (_, i) => <circle r={170 + i * 38} fill="none" stroke-dasharray={i % 3 === 0 ? '2 10' : i % 3 === 1 ? '60 14' : ''} />)}
+      </svg>
+      <div class="f-sun" aria-hidden="true"></div>
+      <h1 class="f-name" aria-label={name}><span class="f-name-l">SHAH</span><span class="f-name-r">MIR</span></h1>
+      <div class="f-figure" aria-hidden="true"><img src="/shahmir/shahmir.webp" alt="" /></div>
+      <div class="f-cover-top">
+        <span class="f-issue">Issue 01 — The Founder</span>
+        <span class="f-cover-roles">Brand builder<br />Strategist<br />Operator</span>
+      </div>
+      <div class="f-cover-bottom">
+        <p class="f-cover-line" data-split>I build brands<br /><em>people can’t ignore.</em></p>
+        <div class="f-cover-side">
+          <p>{name} is the founder of <b>The West Side Studios</b> and <b>The Sourcers</b>.</p>
+          <a href="#contact" class="f-btn" data-magnetic>Work with me <span>↗</span></a>
         </div>
-        <div class="sh-figure"><img src="/shahmir/shahmir.webp" alt="" /></div>
-        <div class="sh-floor"></div>
       </div>
-
-      <!-- 00 hook: zoomed portrait -->
-      <div class="sh-panel sh-hook" data-panel="0">
-        <p class="sh-eyebrow"><span class="sh-dot"></span>Shahmir Hashmat · Founder, The West Side Studios</p>
-        <h1 class="sh-hook-title"><span>We build brands</span><em>people can’t scroll past.</em></h1>
-        <div class="sh-scroll"><i></i><span>Scroll to meet the studio</span></div>
-      </div>
-
-      <!-- 01 left pose, content on the right -->
-      <div class="sh-panel sh-right" data-panel="1">
-        <p class="sh-num">01 <span>The Founder</span></p>
-        <h2>Marketing that <em>moves people.</em></h2>
-        <p class="sh-copy">Shahmir started The West Side Studios to give ambitious brands one partner for strategy, story and growth. Every campaign begins with one question: why should anyone care?</p>
-        <ul class="sh-tags"><li>Brand strategy</li><li>Positioning</li><li>Creative direction</li></ul>
-      </div>
-
-      <!-- 02 right pose, content on the left -->
-      <div class="sh-panel sh-left" data-panel="2">
-        <p class="sh-num">02 <span>The Agency</span></p>
-        <h2>Strategy, story and scale <em>under one roof.</em></h2>
-        <ol class="sh-list">
-          <li><b>Brand identity</b><span>Names, marks and visual systems</span></li>
-          <li><b>Performance marketing</b><span>Paid social, search and funnels</span></li>
-          <li><b>Content production</b><span>Shoots, reels and campaigns</span></li>
-          <li><b>Websites</b><span>Sites that sell while you sleep</span></li>
-        </ol>
-      </div>
-
-      <!-- 03 zoom out: the vision -->
-      <div class="sh-panel sh-center" data-panel="3">
-        <p class="sh-num">03 <span>The Vision</span></p>
-        <h2 class="sh-statement">Every brand has a story.<br /><em>We make the world listen.</em></h2>
-      </div>
-
-      <!-- 04 the team -->
-      <div class="sh-panel sh-teamcopy" data-panel="4">
-        <p class="sh-num">04 <span>The Team</span></p>
-        <h2>The people <em>behind the brands.</em></h2>
-      </div>
-
-      <nav class="sh-progress" aria-hidden="true">
-        {['Hook', 'Founder', 'Agency', 'Vision', 'Team'].map((l, i) => <span data-step={i}><i></i>{l}</span>)}
-      </nav>
+      <div class="f-scrollcue" aria-hidden="true"><i></i>Scroll</div>
     </div>
   </section>
 
-  <section class="sh-end">
-    <canvas class="sh-waves sh-waves-end" aria-hidden="true"></canvas>
-    <div class="sh-end-inner">
-      <p class="sh-eyebrow"><span class="sh-dot"></span>The West Side Studios</p>
-      <h2>Ready to be <em>impossible to ignore?</em></h2>
-      <div class="sh-end-row">
-        <a href="/contact" class="sh-btn">Book a strategy call <span>→</span></a>
-        <a href={`mailto:${SITE.email}`} class="sh-link">{SITE.email}</a>
-      </div>
+  <!-- marquee -->
+  <div class="f-marquee" aria-hidden="true"><div class="f-marquee-track">
+    {[0, 1, 2, 3].map(() => marquee.map((m) => <span>{m}<i>✦</i></span>))}
+  </div></div>
+
+  <!-- 02 · MANIFESTO -->
+  <section class="f-manifesto" id="story">
+    <div class="f-manifesto-stage">
+      <p class="f-label">The manifesto</p>
+      <p class="f-manifesto-text">{words.map((w) => <span class:list={['w', w.hl && 'hl']}>{w.t} </span>)}</p>
     </div>
   </section>
+
+  <!-- 03 · THE FOUNDER -->
+  <section class="f-about">
+    <div class="f-about-media" data-reveal-img>
+      <img src="/founder/portrait-duotone.webp" alt={`Portrait of ${name}`} />
+      <span class="f-about-tag">{name}<br /><small>Founder</small></span>
+    </div>
+    <div class="f-about-copy">
+      <p class="f-label">The founder</p>
+      <h2 data-split>Hi, I’m Shahmir.<br /><em>I turn businesses into brands.</em></h2>
+      <p class="f-lead" data-fade>I started my first company because I believed great products deserve great stories. Today I run two: a creative studio that builds brands, and a sourcing company that helps ecommerce founders build better products.</p>
+      <p class="f-lead" data-fade>Different industries, one obsession: making ambitious businesses look, sound and feel like the leaders they want to become.</p>
+      <ul class="f-roles" data-fade>
+        <li><span>Founder</span><b>The West Side Studios</b></li>
+        <li><span>Founder &amp; CEO</span><b>The Sourcers</b></li>
+      </ul>
+      <p class="f-sign">Shahmir</p>
+    </div>
+  </section>
+
+  <!-- 04 · VENTURES -->
+  <section class="f-ventures" id="ventures">
+    <div class="f-head">
+      <p class="f-label">Ventures</p>
+      <h2 data-split>Two companies.<br /><em>One standard.</em></h2>
+    </div>
+    <div class="f-cards">
+      <a class="f-card f-card-wss" href="/projects" data-cursor="Explore">
+        <div class="f-card-art"><span class="f-card-sun"></span><img src="/wordmark.svg" alt="The West Side Studios" class="f-card-logo" /></div>
+        <div class="f-card-meta"><span>01 — Creative studio</span><h3>The West Side Studios</h3><p>Brand identity, campaigns, content and websites for brands that want to lead their category.</p></div>
+      </a>
+      <a class="f-card f-card-src" href="https://www.thesourcers.co" target="_blank" rel="noopener" data-cursor="Visit">
+        <div class="f-card-art"><span class="f-card-grid"></span><img src="/founder/logo-sourcers.webp" alt="The Sourcers" class="f-card-logo f-card-logo-src" /></div>
+        <div class="f-card-meta"><span>02 — Product sourcing</span><h3>The Sourcers</h3><p>Factory sourcing, quality control and delivery from China for ecommerce brands, end to end.</p></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- 05 · PHILOSOPHY -->
+  <section class="f-philo" id="philosophy">
+    <div class="f-head f-head-sticky">
+      <p class="f-label">How I work</p>
+      <h2 data-split>Four rules<br /><em>I don’t break.</em></h2>
+    </div>
+    <div class="f-stack">
+      {principles.map((p, i) => (
+        <article class={`f-rule r${i}`}>
+          <span class="f-rule-n">{p.n}</span>
+          <h3>{p.t}</h3>
+          <p>{p.d}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- 06 · QUOTE -->
+  <section class="f-quote">
+    <div class="f-quote-lines" aria-hidden="true"></div>
+    <blockquote>
+      <p data-split>“A brand is a promise<br /><em>you keep in public.</em>”</p>
+      <footer>— {name}</footer>
+    </blockquote>
+    <img class="f-quote-face" src="/founder/face.webp" alt="" aria-hidden="true" />
+  </section>
+
+  <!-- 07 · CONTACT -->
+  <section class="f-contact" id="contact">
+    <p class="f-label">Work with me</p>
+    <h2 data-split>Have a brand<br /><em>worth building?</em></h2>
+    <div class="f-contact-row" data-fade>
+      <a href="/contact" class="f-btn f-btn-lg" data-magnetic>Start a conversation <span>↗</span></a>
+      <a href={`mailto:${SITE.email}`} class="f-mail">{SITE.email}</a>
+    </div>
+  </section>
+
+  <footer class="f-footer">
+    <div class="f-footer-marquee" aria-hidden="true"><div class="f-footer-track">{[0, 1, 2].map(() => <span>SHAHMIR HASHMAT <i>✦</i> </span>)}</div></div>
+    <div class="f-footer-row">
+      <span>© 2026 {name}</span>
+      <nav><a href="#story">Story</a><a href="#ventures">Ventures</a><a href="#philosophy">Philosophy</a><a href="/contact">Contact</a></nav>
+      <a href="#top" class="f-top">Back to top ↑</a>
+    </div>
+  </footer>
 </Layout>
