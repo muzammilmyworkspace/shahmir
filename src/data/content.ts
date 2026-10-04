@@ -24,7 +24,7 @@ export const NAV = {
     { label: 'Privacy Policy', href: '/legal/privacy' },
     { label: 'Legal Notice', href: '/legal/notice' },
   ],
-  menuImages: ['/media/sourcers-crane.webp', '/media/crumble-flavours.webp', '/media/crumbl-kitchen.webp'],
+  menuImages: ['/media/studio-face.webp', '/media/studio-circle.webp', '/media/studio-suit.webp'],
 };
 
 export const HERO = {
@@ -39,12 +39,12 @@ export const STATEMENT =
   'We don’t just make websites. We craft digital experiences, brands and products that people remember and businesses grow with.';
 
 export const FOCUS = [
-  { title: 'Websites & Platforms', tags: ['Marketing websites', 'Landing pages', 'Content CMS'], img: '/media/sourcers-hero.webp' },
-  { title: 'Brand Identity', tags: ['Logo systems', 'Visual language', 'Guidelines'], img: '/media/crumble-footer.webp' },
-  { title: 'Motion & 3D', tags: ['WebGL', 'Scroll stories', 'Product renders'], img: '/media/sourcers-ship.webp' },
-  { title: 'eCommerce', tags: ['Shopify', 'Custom storefronts', 'Conversion'], img: '/media/crumble-flavours.webp' },
-  { title: 'Web Applications', tags: ['Dashboards', 'Customer portals', 'Internal tools'], img: '/media/sourcers-crane.webp' },
-  { title: 'Content & Campaigns', tags: ['Launch campaigns', 'Art direction', 'Social'], img: '/media/crumbl-story.webp' },
+  { title: 'Websites & Platforms', tags: ['Marketing websites', 'Landing pages', 'Content CMS'], img: '/media/studio-wide.webp' },
+  { title: 'Brand Identity', tags: ['Logo systems', 'Visual language', 'Guidelines'], img: '/media/studio-face.webp' },
+  { title: 'Motion & 3D', tags: ['WebGL', 'Scroll stories', 'Product renders'], img: '/media/studio-circle.webp' },
+  { title: 'eCommerce', tags: ['Shopify', 'Custom storefronts', 'Conversion'], img: '/media/studio-suit.webp' },
+  { title: 'Web Applications', tags: ['Dashboards', 'Customer portals', 'Internal tools'], img: '/media/studio-floor.webp' },
+  { title: 'Content & Campaigns', tags: ['Launch campaigns', 'Art direction', 'Social'], img: '/media/studio-step.webp' },
 ];
 
 /* Globe + footer offices. The LAST city ends front-and-centre on the globe. PLACEHOLDER cities. */
@@ -58,16 +58,14 @@ export const FOOTER_OFFICES = [
   { city: 'Dubai, UAE', lines: ['By appointment'] }, // PLACEHOLDER
 ];
 
-/* PLACEHOLDER testimonials: replace with real client quotes, names and photos. */
+/* PLACEHOLDER testimonials: replace with real client quotes, names and photos before launch. */
 export const TESTIMONIALS = [
-  { quote: '“The new site finally feels like us. Clients understand what we do before the first call, and the launch got people talking.”', author: 'Founder, Sourcing company', initials: 'TS', tone: '#0058f8' },
-  { quote: '“From the first sketch to launch, the team moved fast and sweated every detail. Our customers keep telling us how good it feels to scroll.”', author: 'Marketing lead, Bakery brand', initials: 'CP', tone: '#010197' },
-  { quote: '“Clear process, sharp design and real craft in the build. They turned a complicated story into something simple and beautiful.”', author: 'Product owner, Retail brand', initials: 'RB', tone: '#191919' },
+  { quote: '“Client quote goes here: what changed for their business after working with the studio.”', author: 'Client name, Company', initials: 'WS', tone: '#f43c00' },
+  { quote: '“Second client quote: a sentence about the process, the team and the result.”', author: 'Client name, Company', initials: 'WS', tone: '#191919' },
+  { quote: '“Third client quote: one line on the launch and how people responded.”', author: 'Client name, Company', initials: 'WS', tone: '#7a0a0a' },
 ];
-export const CLIENT_LOGOS = [
-  { src: '/media/logo-sourcers.png', alt: 'The Sourcers', w: 132, h: 34 },
-  { src: '/media/logo-crumble.svg', alt: 'Crumble Pakistan', w: 118, h: 26 },
-];
+/* Add client logos here (src, alt, w, h). The grid stays hidden while this is empty. */
+export const CLIENT_LOGOS: { src: string; alt: string; w: number; h: number }[] = [];
 
 export type Project = {
   slug: string; client: string; title: string; short: string; category: string; year: string; services: string;
@@ -79,37 +77,27 @@ export type Project = {
 
 export const PROJECTS: Project[] = [
   {
-    slug: 'the-sourcers', client: 'The Sourcers', title: 'China Sourcing Platform & Scroll-Story Website', short: 'Factory floor to front door, told as one continuous journey.',
-    category: 'Sourcing platform', year: '2026', services: 'Brand, design and development', bg: '#0b0b10',
-    cover: '/media/sourcers-hero.webp', video: '/media/case-sourcers.mp4', poster: '/media/case-sourcers-poster.jpg', link: 'https://www.thesourcers.co',
-    overviewTitle: 'Making global sourcing feel close and certain.',
-    overview: 'The Sourcers help ecommerce brands source products from vetted factories in China. We built a cinematic website that follows a single container from the factory crane to the customer’s door: a 3D globe, a port with a working crane, a truck that hands its container to a ship, and a jet over the clouds. Every scene explains one step of the service.',
-    whatTitle: 'A website that ships the product with you.',
-    what: 'Brand rollout, scroll-driven 3D storytelling, a lead-capture quote flow connected to email and WhatsApp, and a performance pass so the whole journey runs smoothly on phones.',
-    gallery: [['/media/sourcers-crane.webp', '/media/sourcers-road.webp'], '/media/sourcers-ship.webp', ['/media/sourcers-footer.webp', '/media/sourcers-hero.webp']],
+    slug: 'the-red-room', client: 'Westside Studios', title: 'The Red Room: Brand Portrait & Scroll Film', short: 'A single portrait turned into a cinematic opening scene.',
+    category: 'Brand campaign', year: '2026', services: 'Art direction, motion and development', bg: '#2e0306',
+    cover: '/media/studio-scene.webp', video: '/media/work-hero.mp4', poster: '/media/work-hero-poster.jpg',
+    overviewTitle: 'One photograph, directed like a film.',
+    overview: 'We took a studio portrait and rebuilt it as a living scene: the subject separated from the set, the red disc and floor re-lit in 4K, and a scroll-driven camera that turns him toward you before pushing into the light.',
+    whatTitle: 'A first impression that moves with you.',
+    what: 'Subject cut-out, procedural set extension, scroll choreography and a seamless hand-off into the brand colour.',
+    gallery: [['/media/studio-face.webp', '/media/studio-suit.webp'], '/media/studio-wide.webp', ['/media/studio-circle.webp', '/media/studio-step.webp']],
   },
   {
-    slug: 'crumble-pakistan', client: 'Crumble Pakistan', title: 'Gourmet Cookie Brand & Story-Driven Store', short: 'From a GIKI dorm room to cities across Pakistan.',
-    category: 'Food & beverage', year: '2026', services: 'Design, motion and development', bg: '#010197',
-    cover: '/media/crumble-hero.webp', video: '/media/case-crumble.mp4', poster: '/media/case-crumble-poster.jpg',
-    overviewTitle: 'Warm, real and impossible to scroll past.',
-    overview: 'Crumble started as a countertop display in a university dorm. We turned that story into a road trip: the Crumble car drives from GIKI to every branch past real Pakistani landmarks, then a chef bakes, breaks and boxes real cookies in an animated kitchen.',
-    whatTitle: 'A menu you can almost taste.',
-    what: 'Cookie photography cut-outs, an animated kitchen, a horizontal flavour reel that recolours the room for every cookie, corporate gifting and events pages, all in the signature blue.',
-    gallery: [['/media/crumble-trip.webp', '/media/crumble-kitchen.webp'], '/media/crumble-melt.webp', ['/media/crumble-flavours.webp', '/media/crumble-bake.webp']],
-  },
-  {
-    slug: 'crumbl-concept', client: 'Crumbl (concept)', title: 'Cookie Journey Concept Website', short: 'An illustrated, fully animated cookie road trip.',
-    category: 'Concept', year: '2026', services: 'Illustration, motion and development', bg: '#ffb9cd',
-    cover: '/media/crumbl-kitchen.webp', video: '/media/case-crumbl.mp4', poster: '/media/crumbl-story.webp',
-    overviewTitle: 'A playful journey from dream to box.',
-    overview: 'A self-initiated concept exploring how far scroll storytelling can go with hand-drawn illustration: a convertible road trip, a kitchen where every ingredient flies into the bowl, and a pink box that closes on the way out. Not affiliated with Crumbl.',
-    whatTitle: 'Illustration that moves with you.',
-    what: 'Original line-art illustration, a 3D cookie that breaks apart, procedural cookie painting and a scroll-scrubbed kitchen with six stations.',
-    gallery: [['/media/crumbl-story.webp', '/media/crumbl-menu.webp'], '/media/crumbl-footer.webp'],
+    slug: 'westside-website', client: 'thewestsidestudios.com', title: 'Our Own Website, Built Like a Story', short: 'Spring transitions, a 3D globe and a glass monogram.',
+    category: 'Website', year: '2026', services: 'Design and development', bg: '#000000',
+    cover: '/media/studio-wide.webp', video: '/media/work-site.mp4', poster: '/media/work-site-poster.jpg',
+    overviewTitle: 'Every interaction tuned by hand.',
+    overview: 'Our studio site is our showreel: a liquid-glass header, a rotating glass monogram, a wireframe globe with live studio clocks, a stacked case reel and page transitions that grow each page out of the last.',
+    whatTitle: 'Craft you can feel when you scroll.',
+    what: 'Astro, GSAP, Lenis, Barba and three.js, with springs and easing tuned frame by frame and a performance pass for phones.',
+    gallery: [['/media/studio-circle.webp', '/media/studio-floor.webp'], '/media/studio-scene.webp'],
   },
 ];
-export const FEATURED = ['the-sourcers', 'crumble-pakistan'];
+export const FEATURED = ['the-red-room', 'westside-website'];
 
 export const ABOUT = {
   heroLead: 'We design and build websites, brands and interactive stories engineered to perform. Clear strategy, sharp design and careful code, working together from day one.',
@@ -122,36 +110,28 @@ export const ABOUT = {
 export type Post = { slug: string; title: string; excerpt: string; date: string; read: string; cats: string[]; img: string; bg: string; author: string; body: string[] };
 export const POSTS: Post[] = [
   {
-    slug: 'scrubbing-video-with-scroll', title: 'How we make a film play with your scroll', excerpt: 'The technique behind our hero: encoding, seeking and springs, and why every frame needs to be a keyframe.',
-    date: 'September 28, 2026', read: '4 min read', cats: ['technology'], img: '/media/film-glow.webp', bg: '#f43c00', author: 'Westside Team',
+    slug: 'directing-a-scroll-film', title: 'Directing a film that plays with your scroll', excerpt: 'How we turned one portrait into an opening scene: cut-out, set extension and a camera move tied to scroll.',
+    date: 'October 2, 2026', read: '4 min read', cats: ['technology'], img: '/media/studio-scene.webp', bg: '#2e0306', author: 'Westside Team',
     body: [
-      'A scroll-scrubbed film turns the page into a timeline: as you move down, the video moves forward, and when you move back, it rewinds. Done well, it feels like directing a camera with your thumb.',
-      'The secret is in the encoding. Most videos keep a full picture only every few seconds and store the frames in between as changes. Seeking backwards then forces the browser to rebuild many frames at once, and the image stutters. We encode with a keyframe every few frames so any moment can be shown instantly.',
-      'On the page we map the section’s scroll progress to the video’s time, and we queue a new position while the browser is still seeking, so it never falls behind your hand. The result is a film that feels physical.',
-    ],
-  },
-  {
-    slug: 'designing-for-pakistani-brands', title: 'Designing real stories for local brands', excerpt: 'What we learned turning a dorm-room bakery into a nationwide road trip.',
-    date: 'September 20, 2026', read: '5 min read', cats: ['community', 'product'], img: '/media/crumble-trip.webp', bg: '#010197', author: 'Westside Team',
-    body: [
-      'Every brand has a story worth telling, but most websites hide it behind a product grid. When Crumble shared how it started, as a countertop display in a university dorm, we knew the story was the product.',
-      'We mapped every branch onto a journey, picked one landmark per city, and let the brand’s delivery car drive the narrative. Real photography of the cookies keeps it honest; illustration carries the movement.',
-    ],
-  },
-  {
-    slug: 'building-a-3d-sourcing-journey', title: 'Building a 3D journey from factory to front door', excerpt: 'Cranes, trucks, ships and a jet: how one container became the spine of a website.',
-    date: 'September 12, 2026', read: '6 min read', cats: ['technology', 'product'], img: '/media/sourcers-ship.webp', bg: '#0b0b10', author: 'Westside Team',
-    body: [
-      'For The Sourcers we followed a single orange container through the whole supply chain. A crane lifts it, a truck carries it, and at the edge of the port it lands exactly on its column on the ship.',
-      'Getting that hand-off pixel-perfect meant matching the camera height of a real-time 3D ocean to a flat road above it, then freezing the ship’s idle sway at exactly the right moment.',
+      'A scroll-driven opening turns the page into a timeline: as you move down, the scene moves forward, and when you move back, it rewinds. Done well, it feels like directing a camera with your thumb.',
+      'We separated the subject from the set, rebuilt the red disc and floor at 4K so the camera can push in without losing detail, and mapped every movement to the section’s scroll progress: a slow turn toward you first, then a push past him into the light.',
+      'The last frames hand over to the brand colour, so the story flows straight into the next section without a cut.',
     ],
   },
   {
     slug: 'motion-with-purpose', title: 'Motion with purpose', excerpt: 'Why every animation on a site we build has to explain something.',
-    date: 'September 5, 2026', read: '3 min read', cats: ['community'], img: '/media/film-front.webp', bg: '#e9dfc4', author: 'Westside Team',
+    date: 'September 26, 2026', read: '3 min read', cats: ['community'], img: '/media/studio-circle.webp', bg: '#7a0a0a', author: 'Westside Team',
     body: [
       'Animation is easy to add and hard to justify. Our rule is simple: if a movement does not help someone understand, find or feel something, it does not ship.',
       'That is why our transitions grow pages from where you were, why text rises line by line in the order you read it, and why most elements stay perfectly still.',
+    ],
+  },
+  {
+    slug: 'building-a-studio-globe', title: 'Building a globe with live studio clocks', excerpt: 'A wireframe sphere, three cities and the time where our team is right now.',
+    date: 'September 18, 2026', read: '3 min read', cats: ['technology', 'product'], img: '/media/studio-floor.webp', bg: '#1c0c0c', author: 'Westside Team',
+    body: [
+      'The globe on our homepage is drawn from simple lines of latitude and longitude, faded by how much each line faces you, so it reads as a sphere without any texture.',
+      'As you scroll it turns from the first city to the last and settles with our home studio in the centre, each pin showing the local time there.',
     ],
   },
 ];

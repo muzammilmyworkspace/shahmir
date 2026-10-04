@@ -82,6 +82,17 @@ a.menu-image:hover img { transform: scale(1.05); }
   .menu-images::-webkit-scrollbar { display: none; }
 }
 
+/* ---------- hero scene ---------- */
+.hs-scene { position: absolute; inset: 0; overflow: hidden; background: #2e0306; }
+.hs-plate { position: absolute; inset: 0; background: url(/hero/plate.webp) 50% 0 / cover no-repeat; will-change: transform; }
+@media (max-width: 767px) { .hs-plate { background-image: url(/hero/plate-mobile.webp); } }
+.hs-shadow { position: absolute; left: 50%; bottom: 2.6%; width: 22vh; height: 4vh; margin-left: -9vh; border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(10,0,0,.75), rgba(10,0,0,0)); filter: blur(6px); }
+.hs-man-wrap { position: absolute; left: 50%; bottom: 4.5%; height: 80%; transform-origin: 50% 30%; will-change: transform; }
+.hs-man { height: 100%; width: auto; display: block; transform: translateX(-50%); transform-origin: 50% 50%; will-change: transform, filter; }
+.hs-glow { position: absolute; width: 160vmax; height: 160vmax; opacity: 0; pointer-events: none; transform: translate(-50%, -50%);
+  background: radial-gradient(closest-side, #ffd9a8 0%, #ff8a4a 22%, #f43c00 52%, rgba(244,60,0,0) 100%); mix-blend-mode: screen; will-change: transform, opacity; }
+
 /* ---------- focus areas ---------- */
 .focus-medias img { width: 1px; height: 1px; top: 0; left: 0; position: absolute; visibility: hidden; pointer-events: none; }
 #media-container { opacity: 0; transition: opacity .3s ease; }

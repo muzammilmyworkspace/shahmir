@@ -109,12 +109,15 @@ function spring(apply: (v: number) => void, done: () => void, from = 0) {
 const lockScroll = () => { document.documentElement.style.overflow = 'hidden'; document.body.style.overflow = 'hidden'; window.__lenisLocked = true; window.__lenis?.stop(); };
 const unlockScroll = () => { document.documentElement.style.overflow = ''; document.body.style.overflow = ''; window.__lenisLocked = false; window.__lenis?.start(); };
 
-/* ================= HOME: hero film ================= */
+/* ================= HOME: hero scene ================= */
+/* Same choreography as the reference film, driven by the section's scroll progress:
+   intro spring (frame .55 → 1), the subject turns to camera (0 → .38), the camera slides
+   past him and pushes into the circle's glowing crescent (.30 → .92), brand overlay .78 → 1. */
 function initHero(root: ParentNode) {
-  const sec = $('#video-project', root), video = $<HTMLVideoElement>('#scrub-video', root), frame = $('#video-frame', root);
+  const sec = $('#video-project', root), frame = $('#video-frame', root);
   const headline = $('#hero-headline', root), aside = $('#hero-aside', root), overlay = $('#orange-overlay', root), content = $('#project-content', root);
-  if (!sec || !video || !frame || !overlay || !content) return;
-  if (innerWidth < 768 && video.dataset.srcMobile) video.src = video.dataset.srcMobile;
+  const plate = $('.hs-plate', root), manWrap = $('.hs-man-wrap', root), man = $('.hs-man', root), glow = $('.hs-glow', root), shadow = $('.hs-shadow', root);
+  if (!sec || !frame || !overlay || !content || !plate || !manWrap || !man || !glow) return;
 
   const s = innerWidth < 1024 ? 0.65 : 0.55;
   const intro = !hasNavigated && !reduced && scrollY < 10;
@@ -128,23 +131,46 @@ function initHero(root: ParentNode) {
     onCleanup(() => { dc.kill(); unlockScroll(); });
   }
 
-  let ready = false, queued: number | null = null;
-  const prime = () => { video.play().then(() => { video.pause(); video.currentTime = 0; ready = true; }).catch(() => { video.currentTime = 0; ready = true; }); };
-  video.readyState >= 1 ? prime() : video.addEventListener('loadedmetadata', prime, { once: true });
-  video.addEventListener('seeked', () => { if (queued !== null) { video.currentTime = queued; queued = null; } });
-
   let lines: HTMLElement[] = [];
   const reveals = $$('[data-reveal-content]', content);
   Promise.all(reveals.map(fontReady)).then(() => { lines = reveals.flatMap(splitLines); lines.forEach((l) => (l.style.transform = 'translateY(100%)')); });
 
+  const easeIO = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+  const easeIn = (t: number) => t * t * t;
+  // the crescent's brightest point, in plate coordinates (plate height = 1, centre x = .5 of width)
+  const placeOrigin = () => {
+    // plate is background-size: cover (3840x2160), anchored top-centre
+    const W = frame.offsetWidth, H = frame.offsetHeight, sc = Math.max(W / 3840, H / 2160);
+    const iw = 3840 * sc, ih = 2160 * sc;
+    const x = (W - iw) / 2 + iw / 2 + 0.272 * ih, y = 0.308 * ih;
+    plate.style.transformOrigin = `${x}px ${y}px`;
+    glow.style.left = `${x}px`; glow.style.top = `${y}px`;
+  };
+  placeOrigin();
+  addEventListener('resize', placeOrigin);
+  onCleanup(() => removeEventListener('resize', placeOrigin));
+
   const progress = () => { const r = sec.getBoundingClientRect(), L = sec.offsetHeight - innerHeight; return L > 0 ? clamp(-r.top / L) : 0; };
+  let lastP = -1;
   addTick(() => {
     const p = progress();
+    if (Math.abs(p - lastP) < 0.00005) return;
+    lastP = p;
     const k = 1 - Math.pow(1 - clamp(p / 0.12), 3);
     for (const el of [headline, aside]) if (el) { el.style.opacity = String(1 - k); el.style.transform = `translate3d(0, ${140 * k}px, 0)`; }
-    if (ready && video.duration) {
-      const t = p * video.duration;
-      if (video.seeking) queued = t; else if (Math.abs(video.currentTime - t) > 0.001) video.currentTime = t;
+
+    if (!reduced) {
+      const turn = easeIO(clamp(p / 0.38));
+      const push = easeIn(clamp((p - 0.3) / 0.62));
+      // subject: turned away → facing camera, then the camera slides past him
+      man.style.transform = `translateX(-50%) perspective(1400px) rotateY(${(-22 * (1 - turn)).toFixed(2)}deg)`;
+      man.style.filter = `brightness(${(0.82 + 0.18 * turn).toFixed(3)})`;
+      manWrap.style.transform = `translate3d(${(-1.5 * (1 - turn) - 78 * push).toFixed(2)}vw, ${(34 * push).toFixed(2)}vh, 0) scale(${(1 + 0.05 * turn + 2.3 * push).toFixed(3)})`;
+      if (shadow) shadow.style.opacity = String(1 - push * 1.4);
+      // background: slight counter-parallax while he turns, then the push into the crescent
+      plate.style.transform = `translate3d(${(0.8 * (1 - turn)).toFixed(2)}vw, 0, 0) scale(${(1.04 - 0.04 * turn + 7.5 * push).toFixed(3)})`;
+      glow.style.opacity = String(clamp(push * 1.35));
+      glow.style.transform = `translate(-50%, -50%) scale(${(0.6 + 3.2 * push).toFixed(3)})`;
     }
     overlay.style.opacity = String(clamp((p - 0.78) / 0.22));
     const q = clamp((p - 0.9) / 0.1);

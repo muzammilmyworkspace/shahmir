@@ -12,7 +12,12 @@ const cases = FEATURED.map((s) => PROJECTS.find((p) => p.slug === s)!);
   <section id="video-project" style="height: 500vh; background: #fff;">
     <div id="video-project-inner" class="sticky top-0 h-screen w-full overflow-hidden bg-white">
       <div id="video-frame" class="absolute inset-0" style="transform: scale(0.55); overflow: hidden;">
-        <video id="scrub-video" src="/hero-video.mp4" data-src-mobile="/hero-video-mobile.mp4" poster="/hero-poster.jpg" muted playsinline preload="auto" class="h-full w-full object-cover"></video>
+        <div id="hero-scene" class="hs-scene" aria-hidden="true">
+          <div class="hs-plate"></div>
+          <div class="hs-shadow"></div>
+          <div class="hs-man-wrap"><img class="hs-man" src="/hero/man.webp" alt="" decoding="async" fetchpriority="high" /></div>
+          <div class="hs-glow"></div>
+        </div>
       </div>
       <div id="hero-text" class="absolute bottom-6 left-6 right-6 flex flex-col gap-6 lg:bottom-10 lg:left-10 lg:right-10 lg:flex-row lg:items-end lg:justify-between lg:gap-8">
         <h1 id="hero-headline" class="font-[Geist] text-[32px] font-normal leading-[1.04] will-change-[transform,opacity]" style="mix-blend-mode: difference;">
@@ -93,12 +98,12 @@ const cases = FEATURED.map((s) => PROJECTS.find((p) => p.slug === s)!);
           ))}
         </div>
       </div>
-      <div class="lg:w-[62%]">
+      {CLIENT_LOGOS.length > 0 && <div class="lg:w-[62%]">
         <p class="mb-6 font-[Geist] text-[14px] font-normal text-black" style="line-height: 120%; letter-spacing: -0.01em;">Trusted by brands worldwide:</p>
         <div class="grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-3 lg:gap-x-8 lg:gap-y-14">
           {CLIENT_LOGOS.map((l) => <div class="flex items-center justify-start"><img src={l.src} alt={l.alt} class="max-w-full object-contain" style={`width:${l.w}px;height:${l.h}px;filter:brightness(0)`} /></div>)}
         </div>
-      </div>
+      </div>}
     </div>
   </section>
 

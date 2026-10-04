@@ -11,7 +11,7 @@ const PAGES = {
   notice: { title: 'Legal Notice', body: [
     'This website is published by The West Side Studios.',
     `Contact: ${SITE.email}.`,
-    'All project imagery is shown with the permission of the respective clients. Concept work is labelled as such and is not affiliated with the brands it references.',
+    'All imagery on this website belongs to The West Side Studios unless stated otherwise.',
   ] },
 } as const;
 export function getStaticPaths() { return [{ params: { slug: 'privacy' } }, { params: { slug: 'notice' } }]; }
